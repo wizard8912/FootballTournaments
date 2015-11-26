@@ -50,4 +50,9 @@ public class UserService {
 
 		return userDao.changeUser(user);
 	}
+
+	public boolean checkPass(User user, String actPass) {
+
+		return passEncoder.matches(actPass, user.getPassword());
+	}
 }

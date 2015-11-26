@@ -90,6 +90,7 @@ public class UserDao {
 
 						User user = new User();
 						user.setUsername(rs.getString("username"));
+						user.setPassword(rs.getString("password"));
 						user.setFirstname(rs.getString("firstname"));
 						user.setLastname(rs.getString("lastname"));
 						user.setEmail(rs.getString("email"));
@@ -98,6 +99,7 @@ public class UserDao {
 						user.setBirthdate(rs.getDate("birthdate"));
 						user.setForgotPassQ(rs.getString("forgotPassQ"));
 						user.setForgotPassA(rs.getString("forgotPassA"));
+
 						return user;
 					}
 				});

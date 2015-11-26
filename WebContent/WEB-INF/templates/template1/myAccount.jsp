@@ -74,3 +74,4 @@
 	</table>
 
 </sf:form>
+<a href="<c:url value='/myAccount/changePassword' />">Zmiana hasła</a>

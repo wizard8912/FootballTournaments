@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pniedziela.web.dao.ToolsDao;
 import pl.pniedziela.web.domain.User;
@@ -63,6 +64,36 @@ public class AccountController {
 		} else {
 			model.addAttribute("alert", "Wyst¹pi³ b³¹d. Dane nie zosta³y zmienione");
 			return "myAccount";
+		}
+	}
+
+	@RequestMapping(value = "/myAccount/changePassword", method = RequestMethod.GET)
+	public String changePassword() {
+
+		return "changePassword";
+	}
+
+	@RequestMapping(value = "/myAccount/changePassword", method = RequestMethod.POST)
+	public String changePassword(@RequestParam String actPass, @RequestParam String newPass, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findByLogin(auth.getName());
+		if (userService.checkPass(user, actPass)) {
+			user.setPassword(newPass);
+			if (userService.changeUserPass(user)) {
+				model.addAttribute("alert", "Poprawnie zmieniono has³o!");
+				model.addAttribute("user", user);
+				model.addAttribute("countryList", toolsDao.getCountries());
+				userService.log(user.getUsername(), "Zmiana has³a", "Poprawnie zmieniono has³o");
+				return "myAccount";
+			} else {
+				model.addAttribute("alert", "Nie uda³o siê zmieniæ has³a");
+				userService.log(user.getUsername(), "Zmiana has³a", "Nieoczekiwany b³¹d przy zmianie has³a");
+				return "changePassword";
+			}
+		} else {
+			model.addAttribute("alert", "Nieprawid³owe has³o. Spróbuj ponownie");
+			userService.log(user.getUsername(), "Zmiana has³a", "Nieprawid³owe has³o");
+			return "changePassword";
 		}
 	}
 }
