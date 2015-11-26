@@ -1,6 +1,8 @@
 package pl.pniedziela.web.listener;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,15 +53,24 @@ public class AuthenticationHandler
 
 		String username = request.getParameter("j_username");
 		String password = request.getParameter("j_password");
-		String error = exception.getMessage();
+		System.out.println(exception.getMessage());
 		String banInfo = banService.getBanInfo(username, password);
-		if (banInfo != null)
-			error = banInfo;
+		Map<String, String> errors = new HashMap<>();
+		errors.put("Cannot pass null or empty values to constructor", "login.error.emptyValues");
+		errors.put("Bad credentials", "login.error.badCredentials");
+		errors.put("User is disabled", "login.error.disabledUser");
+
+		String error = errors.get(exception.getMessage());
 		String message = error + "; " + request.getRemoteAddr();
+		if (banInfo != null) {
+			error = "banned";
+			message = banInfo;
+		}
 
 		userService.log(username, "user.failedLogin", message);
 		response.setContentType("text/html; charset=UTF-8");
 		request.getSession().setAttribute("error", error);
+		request.getSession().setAttribute("username", username);
 		response.sendRedirect(request.getContextPath() + "/login");
 	}
 

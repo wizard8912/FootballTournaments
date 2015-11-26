@@ -24,10 +24,14 @@ public class BanService {
 			return null;
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("U¿ytkownik: " + ban.getUsername() + " jest zbanowany od dnia: " + ban.getFromDate() + " do dnia: "
-				+ ban.getToDate() + ". ");
+		sb.append("User: " + ban.getUsername() + " is banned from: " + ban.getFromDate() + " to: " + ban.getToDate()
+				+ ". ");
 		if (ban.getReason() != null && ban.getReason() != "")
-			sb.append("Powód: " + ban.getReason());
+			sb.append("Reason: " + ban.getReason());
 		return sb.toString();
+	}
+
+	public Ban getBan(String username) {
+		return banDao.getBan(username);
 	}
 }

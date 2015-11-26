@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pniedziela.web.dao.ToolsDao;
+import pl.pniedziela.web.domain.Ban;
 import pl.pniedziela.web.domain.User;
 import pl.pniedziela.web.listener.AuthenticationHandler;
 import pl.pniedziela.web.service.BanService;
@@ -45,8 +46,15 @@ public class LoginController {
 	public String getLoginPage(HttpSession session, Model model) {
 		authenticationHandler.setUserService(userService);
 		authenticationHandler.setBanService(banService);
+		if (session.getAttribute("error") == "banned") {
+			String username = (String) session.getAttribute("username");
+			Ban ban = banService.getBan(username);
+			model.addAttribute("ban", ban);
+		}
+
 		model.addAttribute("error", session.getAttribute("error"));
 		session.removeAttribute("error");
+		session.removeAttribute("username");
 		return "login";
 	}
 

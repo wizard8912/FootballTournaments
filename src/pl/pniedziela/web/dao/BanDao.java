@@ -57,4 +57,38 @@ public class BanDao {
 			return passwordEncoder.matches(password, banList.get(0).getUserPass()) ? banList.get(0) : null;
 		}
 	}
+
+	public Ban getBan(String username) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", username);
+
+		List<Ban> banList = jdbc.query("CALL `football_tournaments`.`sp_getUserBanInfo`(:username);", params,
+				new RowMapper<Ban>() {
+
+					@Override
+					public Ban mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+						Ban ban = new Ban();
+						ban.setUserPass(rs.getString("password"));
+						ban.setBanAuthor(rs.getInt("banAuthor"));
+						ban.setUserId(rs.getInt("user_id"));
+						ban.setUsername(rs.getString("username"));
+						ban.setBanAuthorName(rs.getString("banAuthorName"));
+						ban.setReason(rs.getString("reason"));
+						ban.setFromDate(rs.getDate("FromDate"));
+						ban.setToDate(rs.getDate("ToDate"));
+
+						if (ban.getReason().trim() == "")
+							ban.setReason(null);
+						return ban;
+					}
+
+				});
+
+		if (banList.isEmpty())
+			return null;
+		else {
+			return banList.get(0);
+		}
+	}
 }

@@ -39,6 +39,13 @@
 
 
 			<ul class="nav navbar-nav navbar-right">
+				<li><a href="?language=en"><img
+						src="${ pageContext.request.contextPath }/static/flag_UK.png"
+						class="img-rounded" style="width: 30px; height: 20px;" /></a></li>
+				<li><a href="?language=pl"><img
+						src="${ pageContext.request.contextPath }/static/flag_Poland.png"
+						class="img-rounded" style="width: 30px; height: 20px;" /></a></li>
+
 				<sec:authorize access="!isAuthenticated()">
 					<li><div class="dropdown">
 							<a class="btn btn-default dropdown-toggle"
