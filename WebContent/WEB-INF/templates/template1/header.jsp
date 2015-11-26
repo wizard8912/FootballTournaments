@@ -11,6 +11,11 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
@@ -40,10 +45,48 @@
 					<li><a href="<c:url value='/login' />">Log in</a></li>
 
 				</sec:authorize>
-				<sec:authorize access="isAuthenticated()">
-					<li><a href="<c:url value='/myAccount' />">Moje konto</a></li>
-					<li><a href="<c:url value='/j_spring_security_logout' />">Wyloguj</a>
+				<sec:authorize access="hasAnyRole('ROLE_SuperAdmin', 'ROLE_Admin')">
+					<li>
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								id="menu1" data-toggle="dropdown">
+								Panel Administratora <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="admin/users"/>'>Użytkownicy</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="admin/logs"/>'>Logi</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="admin/configure"/>'>Konfiguracja</a></li>
+								<li role="presentation" class="divider"></li>
+							</ul>
+						</div>
 					</li>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<li>
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								id="menu1" data-toggle="dropdown">
+								Konto <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="myAccount"/>'>Zmiana danych</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="myAccount/changePassword"/>'>Zmiana
+										hasła</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="myAccount/info"/>'>Informacje</a></li>
+								<li role="presentation" class="divider"></li>
+							</ul>
+						</div>
+					</li>
+					<li><div class="dropdown">
+							<a class="btn btn-default dropdown-toggle"
+								href="<c:url value='/j_spring_security_logout' />">Wyloguj</a>
+						</div></li>
 				</sec:authorize>
 			</ul>
 		</div>
