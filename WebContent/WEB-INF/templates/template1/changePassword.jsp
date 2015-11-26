@@ -11,7 +11,9 @@
 <form id="details" method="post"
 	action="${pageContext.request.contextPath}/myAccount/changePassword">
 	<div>
-		<label><c:if test="${ alert != null}">${ alert }</c:if></label>
+		<label><c:if test="${alert != null}">
+				<fmt:message key="${alert}" />
+			</c:if></label>
 	</div>
 	<table class="formtable">
 		<tr>
