@@ -131,4 +131,24 @@ public class UserDao {
 			return false;
 	}
 
+	public boolean changeUser(User user) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", user.getUsername());
+		params.addValue("firstname", user.getFirstname());
+		params.addValue("lastname", user.getLastname());
+		params.addValue("email", user.getEmail());
+		params.addValue("birthdate", user.getBirthdate());
+		params.addValue("country", user.getCountry());
+		params.addValue("city", user.getCity());
+
+		Integer result = jdbc.queryForObject(
+				"CALL `football_tournaments`.`sp_changeUser`(:username,:firstname,:lastname,:country,:city,:birthdate,:email);",
+				params, Integer.class);
+
+		if (result > 0)
+			return true;
+		else
+			return false;
+	}
+
 }

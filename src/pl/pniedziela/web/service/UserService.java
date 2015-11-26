@@ -45,4 +45,9 @@ public class UserService {
 	public boolean changeUserPass(User user) {
 		return userDao.changeUserPass(user);
 	}
+
+	public boolean changeUser(User user) {
+
+		return userDao.changeUser(user);
+	}
 }

@@ -2,13 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <h2>My Account</h2>
 
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/myAccount"
 	commandName="user">
-
+	<div>
+		<label><c:if test="${ alert != null}">${ alert }</c:if></label>
+	</div>
 	<table class="formtable">
 		<tr>
 			<td>Username:</td>
@@ -62,22 +65,6 @@
 					type="text" /><br />
 				<div class="error">
 					<sf:errors path="birthdate"></sf:errors>
-				</div></td>
-		</tr>
-		<tr>
-			<td>Forgot Pass Question:</td>
-			<td><sf:input class="control" path="forgotPassQ"
-					name="forgotPassQ" type="text" /><br />
-				<div class="error">
-					<sf:errors path="forgotPassQ"></sf:errors>
-				</div></td>
-		</tr>
-		<tr>
-			<td>Forgot Pass Answer:</td>
-			<td><sf:input class="control" path="forgotPassA"
-					name="forgotPassA" type="text" /><br />
-				<div class="error">
-					<sf:errors path="forgotPassA"></sf:errors>
 				</div></td>
 		</tr>
 		<tr>

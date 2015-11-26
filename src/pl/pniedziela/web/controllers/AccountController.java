@@ -1,5 +1,8 @@
 package pl.pniedziela.web.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +38,31 @@ public class AccountController {
 
 	@RequestMapping(value = "/myAccount", method = RequestMethod.POST)
 	public String changeAccount(@Valid User user, BindingResult result, Model model) {
+		List<String> fieldsToValid = new ArrayList<String>();
+		fieldsToValid.add("email");
+		fieldsToValid.add("firstname");
+		fieldsToValid.add("lastname");
+		fieldsToValid.add("country");
+		fieldsToValid.add("city");
+		fieldsToValid.add("birthdate");
+
+		model.addAttribute("countryList", toolsDao.getCountries());
 
 		if (result.hasErrors()) {
-			model.addAttribute("countryList", toolsDao.getCountries());
-			return "myAccount";
+			for (String field : fieldsToValid) {
+				if (result.hasFieldErrors(field)) {
+					return "myAccount";
+				}
+			}
 		}
 
-		return "";
+		if (userService.changeUser(user)) {
+			userService.log(user.getUsername(), "Zmiana danych", "Edycja konta u¿ytkownika");
+			model.addAttribute("alert", "Poprawnie zmieniono dane!");
+			return "myAccount";
+		} else {
+			model.addAttribute("alert", "Wyst¹pi³ b³¹d. Dane nie zosta³y zmienione");
+			return "myAccount";
+		}
 	}
 }
