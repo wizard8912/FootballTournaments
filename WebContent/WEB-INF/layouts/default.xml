@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="template.base" template="/WEB-INF/templates/template1.jsp">
+		<put-attribute name="includes" value="" />
+		<put-attribute name="title" value="homepage" />
+		<put-attribute name="header"
+			value="/WEB-INF/templates/template1/header.jsp" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/content.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/templates/template1/footer.jsp" />
+	</definition>
+
+	<definition name="home" extends="template.base">
+		<put-attribute name="title" value="Football Tournaments" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/home.jsp"></put-attribute>
+	</definition>
+
+	<definition name="login" extends="template.base">
+		<put-attribute name="title" value="Login page" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/login.jsp"></put-attribute>
+	</definition>
+
+	<definition name="register" extends="template.base">
+		<put-attribute name="includes" value="/WEB-INF/js/register.jsp"></put-attribute>
+		<put-attribute name="title" value="Register page" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/register.jsp"></put-attribute>
+	</definition>
+
+	<definition name="forgotPass" extends="template.base">
+		<put-attribute name="title" value="Forgot pass" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/forgotPass.jsp" />
+	</definition>
+
+	<definition name="passAnswer" extends="template.base">
+		<put-attribute name="title" value="Restart pass" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/passAnswer.jsp" />
+	</definition>
+
+	<definition name="myAccount" extends="template.base">
+		<put-attribute name="title" value="My Account" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/myAccount.jsp" />
+	</definition>
+</tiles-definitions>
