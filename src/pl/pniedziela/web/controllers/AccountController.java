@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,19 +52,26 @@ public class AccountController {
 		model.addAttribute("countryList", toolsDao.getCountries());
 
 		if (result.hasErrors()) {
-			for (String field : fieldsToValid) {
-				if (result.hasFieldErrors(field)) {
-					return "myAccount";
+			List<String> errors = new ArrayList<>();
+			for (Object object : result.getAllErrors()) {
+				if (fieldsToValid.contains(((FieldError) object).getField())) {
+					errors.add(((FieldError) object).getDefaultMessage());
 				}
+			}
+
+			if (errors.size() > 0) {
+				model.addAttribute("errors", errors);
+				return "myAccount";
 			}
 		}
 
 		if (userService.changeUser(user)) {
-			userService.log(user.getUsername(), "Zmiana danych", "Edycja konta u¿ytkownika");
-			model.addAttribute("alert", "Poprawnie zmieniono dane!");
+			userService.log(user.getUsername(), "log.changeAccount", "account.successChange");
+			model.addAttribute("alert", "account.successChange");
 			return "myAccount";
 		} else {
-			model.addAttribute("alert", "Wyst¹pi³ b³¹d. Dane nie zosta³y zmienione");
+			userService.log(user.getUsername(), "log.changeAccount", "account.unsuccessChange");
+			model.addAttribute("alert", "account.unsuccessChange");
 			return "myAccount";
 		}
 	}
@@ -80,19 +89,19 @@ public class AccountController {
 		if (userService.checkPass(user, actPass)) {
 			user.setPassword(newPass);
 			if (userService.changeUserPass(user)) {
-				model.addAttribute("alert", "Poprawnie zmieniono has³o!");
+				model.addAttribute("alert", "account.successPassChange");
 				model.addAttribute("user", user);
 				model.addAttribute("countryList", toolsDao.getCountries());
-				userService.log(user.getUsername(), "Zmiana has³a", "Poprawnie zmieniono has³o");
+				userService.log(user.getUsername(), "log.changePassword", "account.successPassChange");
 				return "myAccount";
 			} else {
-				model.addAttribute("alert", "Nie uda³o siê zmieniæ has³a");
-				userService.log(user.getUsername(), "Zmiana has³a", "Nieoczekiwany b³¹d przy zmianie has³a");
+				model.addAttribute("alert", "account.unsuccessPassChange");
+				userService.log(user.getUsername(), "log.changePassword", "account.unsuccessPassChange");
 				return "changePassword";
 			}
 		} else {
-			model.addAttribute("alert", "Nieprawid³owe has³o. Spróbuj ponownie");
-			userService.log(user.getUsername(), "Zmiana has³a", "Nieprawid³owe has³o");
+			model.addAttribute("alert", "account.wrongPass");
+			userService.log(user.getUsername(), "log.changePassword", "account.wrongPass");
 			return "changePassword";
 		}
 	}

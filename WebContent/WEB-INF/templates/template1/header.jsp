@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -28,8 +29,8 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${ pageContext.request.contextPath }/">Turnieje
-				piłkarskie</a>
+			<a class="navbar-brand" href="${ pageContext.request.contextPath }/"><fmt:message
+					key="title.home" /></a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
@@ -39,10 +40,16 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
-
-					<li><a href="<c:url value='/register' />">Register</a></li>
-
-					<li><a href="<c:url value='/login' />">Log in</a></li>
+					<li><div class="dropdown">
+							<a class="btn btn-default dropdown-toggle"
+								href="<c:url value='/register' />"><fmt:message
+									key="title.register" /></a>
+						</div></li>
+					<li><div class="dropdown">
+							<a class="btn btn-default dropdown-toggle"
+								href="<c:url value='/login' />"><fmt:message
+									key="title.login" /></a>
+						</div></li>
 
 				</sec:authorize>
 				<sec:authorize access="hasAnyRole('ROLE_SuperAdmin', 'ROLE_Admin')">
@@ -50,15 +57,19 @@
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button"
 								id="menu1" data-toggle="dropdown">
-								Panel Administratora <span class="caret"></span>
+								<fmt:message key="title.adminpanel" />
+								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href='<c:url value="admin/users"/>'>Użytkownicy</a></li>
+									href='<c:url value="/admin/users"/>'><fmt:message
+											key="title.users" /></a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href='<c:url value="admin/logs"/>'>Logi</a></li>
+									href='<c:url value="/admin/logs"/>'><fmt:message
+											key="title.logs" /></a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href='<c:url value="admin/configure"/>'>Konfiguracja</a></li>
+									href='<c:url value="/admin/configure"/>'><fmt:message
+											key="title.configuration" /></a></li>
 								<li role="presentation" class="divider"></li>
 							</ul>
 						</div>
@@ -69,23 +80,27 @@
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button"
 								id="menu1" data-toggle="dropdown">
-								Konto <span class="caret"></span>
+								<fmt:message key="title.account" />
+								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href='<c:url value="myAccount"/>'>Zmiana danych</a></li>
+									href='<c:url value="/myAccount"/>'><fmt:message
+											key="title.changeAccount" /></a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href='<c:url value="myAccount/changePassword"/>'>Zmiana
-										hasła</a></li>
+									href='<c:url value="/myAccount/changePassword"/>'><fmt:message
+											key="title.changePassword" /></a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href='<c:url value="myAccount/info"/>'>Informacje</a></li>
+									href='<c:url value="/myAccount/info"/>'><fmt:message
+											key="title.infos" /></a></li>
 								<li role="presentation" class="divider"></li>
 							</ul>
 						</div>
 					</li>
 					<li><div class="dropdown">
 							<a class="btn btn-default dropdown-toggle"
-								href="<c:url value='/j_spring_security_logout' />">Wyloguj</a>
+								href="<c:url value='/j_spring_security_logout' />"><fmt:message
+									key="title.logout" /></a>
 						</div></li>
 				</sec:authorize>
 			</ul>

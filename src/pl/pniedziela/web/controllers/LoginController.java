@@ -65,10 +65,10 @@ public class LoginController {
 		if (result.hasErrors()) {
 			fail = true;
 		} else if (user.getUsername() != "" && userService.findByLogin(user.getUsername()) != null) {
-			result.rejectValue("username", "DuplicateKey.user.username");
+			result.rejectValue("username", "register.duplicateUser");
 			fail = true;
 		} else if (user.getEmail() != "" && userService.findByEmail(user.getEmail()) != null) {
-			result.rejectValue("email", "DuplicateKey.user.email");
+			result.rejectValue("email", "register.duplicateEmail");
 			fail = true;
 		}
 		if (fail) {
@@ -77,7 +77,7 @@ public class LoginController {
 		}
 
 		userService.saveUser(user);
-		return getHomePageWithAlert("Zarejestrowano, mo¿esz siê zalogowaæ!", model);
+		return getHomePageWithAlert("register.correctRegister", model);
 	}
 
 	@RequestMapping(value = "/forgotPass", method = RequestMethod.GET)
@@ -91,12 +91,12 @@ public class LoginController {
 
 		User user;
 		if (username.trim() == "" && email.trim() == "") {
-			model.addAttribute("error", "Podaj nazwê u¿ytkownika, lub email!");
+			model.addAttribute("error", "forgotPass.alertEmptyValues");
 			return "forgotPass";
 		} else if ((user = userService.findByLogin(username)) == null
 				&& (user = userService.findByEmail(email)) == null) {
 
-			model.addAttribute("error", "Podany u¿ytkownik nie istnieje!");
+			model.addAttribute("error", "forgotPass.userNotExist");
 			return "forgotPass";
 		} else {
 			return checkForgotPassAnsGet(user, model);
@@ -116,21 +116,20 @@ public class LoginController {
 		boolean answer = userService.checkForgotPassA(username, forgotPassA);
 
 		if (answer) {
-			userService.log(username, "Przypomnienie has³a",
-					"Prawid³owa odpowiedŸ na pytanie pomocnicze! Zmiana has³a.");
+			userService.log(username, "remindPassword", "forgotPass.passChanged");
 			User user = userService.findByLogin(username);
 			user.setPassword(newPass);
 			if (userService.changeUserPass(user))
-				return getHomePageWithAlert("Has³o zmienione!", model);
+				return getHomePageWithAlert("forgotPass.passChanged", model);
 			else {
-				model.addAttribute("error", "Wyst¹pi³ b³¹d. Has³o nie zosta³o zmienione.");
+				model.addAttribute("error", "forgotPass.unexpectedError");
 				model.addAttribute("username", username);
 				model.addAttribute("forgotPassQ", userService.findByLogin(username).getForgotPassQ());
 				return "passAnswer";
 			}
 		} else {
-			userService.log(username, "Przypomnienie has³a", "Nieprawid³owa odpowiedŸ na pytanie pomocnicze!");
-			model.addAttribute("error", "Nieprawid³owa odpowiedŸ na pytanie pomocnicze!");
+			userService.log(username, "remindPassword", "forgotPass.wrongAnswer");
+			model.addAttribute("error", "forgotPass.wrongAnswer");
 			model.addAttribute("username", username);
 			model.addAttribute("forgotPassQ", userService.findByLogin(username).getForgotPassQ());
 			return "passAnswer";

@@ -57,4 +57,10 @@
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/changePassword.jsp" />
 	</definition>
+
+	<definition name="userStats" extends="template.base">
+		<put-attribute name="title" value="User Stats" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/userStats.jsp" />
+	</definition>
 </tiles-definitions>

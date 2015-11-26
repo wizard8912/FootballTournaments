@@ -41,7 +41,7 @@ public class AuthenticationHandler
 
 		String message = httpServletRequest.getRemoteAddr();
 		String username = ((UserDetails) authentication.getPrincipal()).getUsername();
-		userService.log(username, "Logowanie", message);
+		userService.log(username, "user.login", message);
 		httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
 	}
 
@@ -57,7 +57,7 @@ public class AuthenticationHandler
 			error = banInfo;
 		String message = error + "; " + request.getRemoteAddr();
 
-		userService.log(username, "Nieudane logowanie", message);
+		userService.log(username, "user.failedLogin", message);
 		response.setContentType("text/html; charset=UTF-8");
 		request.getSession().setAttribute("error", error);
 		response.sendRedirect(request.getContextPath() + "/login");
@@ -69,7 +69,7 @@ public class AuthenticationHandler
 
 		String username = ((UserDetails) authentication.getPrincipal()).getUsername();
 		String message = request.getRemoteAddr();
-		userService.log(username, "Wylogowanie", message);
+		userService.log(username, "user.logout", message);
 		response.sendRedirect(request.getContextPath() + "/");
 
 	}

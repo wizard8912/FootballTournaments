@@ -11,29 +11,29 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class User {
 
-	@NotBlank
-	@Size(min = 3, max = 30)
+	@NotBlank(message = "validation.user.username.notblank")
+	@Size(min = 3, max = 30, message = "validation.user.username.size")
 	private String username;
-	@NotBlank
-	@Size(min = 6, max = 40)
+	@NotBlank(message = "validation.user.pass.notblank")
+	@Size(min = 6, max = 40, message = "validation.user.pass.size")
 	private String password;
-	@Size(min = 3, max = 45)
+	@Size(min = 3, max = 45, message = "validation.user.firstname.size")
 	private String firstname;
-	@Size(min = 3, max = 45)
+	@Size(min = 3, max = 45, message = "validation.user.lastname.size")
 	private String lastname;
 	private int country;
-	@Size(min = 3, max = 30)
+	@Size(min = 3, max = 30, message = "validation.user.city.size")
 	private String city;
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	@Past(message = "Data urodzenia nie mo¿e byæ z przysz³oœci!")
+	@Past(message = "validation.user.birthdate.pastdate")
 	private Date birthdate;
-	@Email
+	@Email(message = "validation.user.email")
 	private String email;
-	@NotBlank
-	@Size(min = 10, max = 200)
+	@NotBlank(message = "validation.user.forgotPassQ.notblank")
+	@Size(min = 10, max = 200, message = "validation.user.forgotPassQ.size")
 	private String forgotPassQ;
-	@NotBlank
-	@Size(min = 6, max = 100)
+	@NotBlank(message = "validation.user.forgotPassA.notblank")
+	@Size(min = 6, max = 100, message = "validation.user.forgotPassA.size")
 	private String forgotPassA;
 
 	public User(String username, String password, String firstname, String lastname, int country, String city,
