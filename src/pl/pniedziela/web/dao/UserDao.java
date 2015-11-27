@@ -153,4 +153,17 @@ public class UserDao {
 			return false;
 	}
 
+	public boolean deleteAccount(User user) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", user.getUsername());
+
+		Integer result = jdbc.queryForObject("CALL `football_tournaments`.`sp_deleteAccount`(:username);", params,
+				Integer.class);
+
+		if (result > 0)
+			return true;
+		else
+			return false;
+	}
+
 }

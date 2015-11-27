@@ -55,4 +55,9 @@ public class UserService {
 
 		return passEncoder.matches(actPass, user.getPassword());
 	}
+
+	public boolean deleteAccount(User user) {
+
+		return userDao.deleteAccount(user);
+	}
 }

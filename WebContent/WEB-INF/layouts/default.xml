@@ -63,4 +63,10 @@
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/userStats.jsp" />
 	</definition>
+
+	<definition name="deleteAccount" extends="template.base">
+		<put-attribute name="title" value="Delete Account" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/deleteAccount.jsp" />
+	</definition>
 </tiles-definitions>

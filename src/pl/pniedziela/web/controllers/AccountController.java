@@ -3,6 +3,7 @@ package pl.pniedziela.web.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.DataBinder;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -103,6 +103,37 @@ public class AccountController {
 			model.addAttribute("alert", "account.wrongPass");
 			userService.log(user.getUsername(), "log.changePassword", "account.wrongPass");
 			return "changePassword";
+		}
+	}
+
+	@RequestMapping(value = "/myAccount/deleteAccount", method = RequestMethod.GET)
+	public String deleteAccount() {
+
+		return "deleteAccount";
+	}
+
+	@RequestMapping(value = "/myAccount/deleteAccount", method = RequestMethod.POST)
+	public String deleteAccount(@RequestParam String password, Model model) throws ServletException {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findByLogin(auth.getName());
+		if (!userService.checkPass(user, password)) {
+			model.addAttribute("error", "deleteAccount.wrongPassword");
+			userService.log(user.getUsername(), "deleteAccount", "deleteAccount.wrongPassword");
+			return "deleteAccount";
+		} else {
+			try {
+				if (!userService.deleteAccount(user)) {
+					throw new Exception("deleteAccount.unexpectedException");
+				}
+				userService.log(user.getUsername(), "deleteAccount", "deleteAccount.correctDeleted");
+				model.addAttribute("alert", "deleteAccount.correctDeleted");
+			} catch (Exception e) {
+				userService.log(user.getUsername(), "deleteAccount", e.getMessage());
+				model.addAttribute("alert", e.getMessage());
+			}
+
+			return "redirect:/j_spring_security_logout";
 		}
 	}
 }

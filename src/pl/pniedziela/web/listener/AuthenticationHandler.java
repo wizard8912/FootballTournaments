@@ -77,10 +77,12 @@ public class AuthenticationHandler
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-
-		String username = ((UserDetails) authentication.getPrincipal()).getUsername();
-		String message = request.getRemoteAddr();
-		userService.log(username, "user.logout", message);
+		try {
+			String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+			String message = request.getRemoteAddr();
+			userService.log(username, "user.logout", message);
+		} catch (Exception e) {
+		}
 		response.sendRedirect(request.getContextPath() + "/");
 
 	}

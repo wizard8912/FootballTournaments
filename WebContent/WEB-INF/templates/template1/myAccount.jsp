@@ -72,3 +72,5 @@
 </sf:form>
 <a href="<c:url value='/myAccount/changePassword' />"><fmt:message
 		key="title.changePassword" /></a>
+<a href="<c:url value='/myAccount/deleteAccount' />"><fmt:message
+		key="title.deleteAccount" /></a>
