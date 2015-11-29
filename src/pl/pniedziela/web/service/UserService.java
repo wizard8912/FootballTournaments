@@ -31,9 +31,9 @@ public class UserService {
 		return userDao.findByEmail(email);
 	}
 
-	public void log(String username, String operation, String message) {
+	public void log(String username, String operation, String ipaddress) {
 
-		userDao.log(username, operation, message);
+		userDao.log(username, operation, ipaddress);
 	}
 
 	public boolean checkForgotPassA(String username, String forgotPassA) {

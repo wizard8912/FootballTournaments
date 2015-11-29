@@ -110,13 +110,13 @@ public class UserDao {
 			return userList.get(0);
 	}
 
-	public void log(String username, String operation, String message) {
+	public void log(String username, String operation, String ipaddress) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("username", username);
 		params.addValue("action", operation);
-		params.addValue("message", message);
+		params.addValue("ipaddress", ipaddress);
 
-		jdbc.update("CALL `football_tournaments`.`sp_addUserLog`(:username, :action, :message);", params);
+		jdbc.update("CALL `football_tournaments`.`sp_addUserLog`(:username, :action, :ipaddress);", params);
 	}
 
 	public boolean changeUserPass(User user) {

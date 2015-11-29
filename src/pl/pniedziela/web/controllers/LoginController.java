@@ -1,5 +1,6 @@
 package pl.pniedziela.web.controllers;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -119,12 +120,12 @@ public class LoginController {
 
 	@RequestMapping(value = "/checkFpAnswer", method = RequestMethod.POST)
 	public String checkForgotPassAns(@RequestParam String username, @RequestParam String forgotPassA,
-			@RequestParam String newPass, Model model) {
+			@RequestParam String newPass, Model model, HttpServletRequest request) {
 
 		boolean answer = userService.checkForgotPassA(username, forgotPassA);
-
+		String ipaddress = request.getRemoteAddr();
 		if (answer) {
-			userService.log(username, "remindPassword", "forgotPass.passChanged");
+			userService.log(username, "forgotPass.passChanged", ipaddress);
 			User user = userService.findByLogin(username);
 			user.setPassword(newPass);
 			if (userService.changeUserPass(user))
@@ -136,7 +137,7 @@ public class LoginController {
 				return "passAnswer";
 			}
 		} else {
-			userService.log(username, "remindPassword", "forgotPass.wrongAnswer");
+			userService.log(username, "forgotPass.wrongAnswer", ipaddress);
 			model.addAttribute("error", "forgotPass.wrongAnswer");
 			model.addAttribute("username", username);
 			model.addAttribute("forgotPassQ", userService.findByLogin(username).getForgotPassQ());

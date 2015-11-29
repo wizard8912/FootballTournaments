@@ -41,9 +41,8 @@ public class AuthenticationHandler
 	public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
 			Authentication authentication) throws IOException, ServletException {
 
-		String message = httpServletRequest.getRemoteAddr();
 		String username = ((UserDetails) authentication.getPrincipal()).getUsername();
-		userService.log(username, "user.login", message);
+		userService.log(username, "user.login", httpServletRequest.getRemoteAddr());
 		httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
 	}
 
@@ -61,13 +60,13 @@ public class AuthenticationHandler
 		errors.put("User is disabled", "login.error.disabledUser");
 
 		String error = errors.get(exception.getMessage());
-		String message = error + "; " + request.getRemoteAddr();
+		String message = error;
 		if (banInfo != null) {
 			error = "banned";
-			message = banInfo;
+			message = "login.error.banned";
 		}
 
-		userService.log(username, "user.failedLogin", message);
+		userService.log(username, message, request.getRemoteAddr());
 		response.setContentType("text/html; charset=UTF-8");
 		request.getSession().setAttribute("error", error);
 		request.getSession().setAttribute("username", username);
@@ -79,8 +78,8 @@ public class AuthenticationHandler
 			throws IOException, ServletException {
 		try {
 			String username = ((UserDetails) authentication.getPrincipal()).getUsername();
-			String message = request.getRemoteAddr();
-			userService.log(username, "user.logout", message);
+
+			userService.log(username, "user.logout", request.getRemoteAddr());
 		} catch (Exception e) {
 		}
 		response.sendRedirect(request.getContextPath() + "/");

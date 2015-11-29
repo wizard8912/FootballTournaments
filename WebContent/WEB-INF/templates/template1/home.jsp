@@ -8,4 +8,3 @@
 <c:if test="${alert != null}">
 	<fmt:message key="${alert}" />
 </c:if>
-łHOME PAGE!

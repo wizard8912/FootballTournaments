@@ -75,4 +75,13 @@
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/appConfig.jsp" />
 	</definition>
+
+	<definition name="usersLogs" extends="template.base">
+		<put-attribute name="title" value="Users logs" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/usersLogs.jsp" />
+	</definition>
+
+
+
 </tiles-definitions>
