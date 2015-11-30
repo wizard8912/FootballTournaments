@@ -82,6 +82,18 @@
 			value="/WEB-INF/templates/template1/usersLogs.jsp" />
 	</definition>
 
+	<definition name="adminBans" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/adminBans.jsp" />
+	</definition>
+
+	<definition name="adminUsers" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/adminUsers.jsp" />
+	</definition>
+
 
 
 </tiles-definitions>

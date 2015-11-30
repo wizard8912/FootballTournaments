@@ -12,7 +12,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 
 import pl.pniedziela.web.domain.AppConfigBan;
-import pl.pniedziela.web.domain.Ban;
 
 @Repository
 public class AppConfigDao {

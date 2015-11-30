@@ -16,4 +16,14 @@ public class AdminService {
 
 		return adminDao.getHistory(lang);
 	}
+
+	public JSONArray getAllBans() {
+
+		return adminDao.getAllBans();
+	}
+
+	public JSONArray getAllUsers() {
+
+		return adminDao.getAllUsers();
+	}
 }

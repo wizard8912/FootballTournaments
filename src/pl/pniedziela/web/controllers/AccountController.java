@@ -17,7 +17,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import pl.pniedziela.web.dao.ToolsDao;
 import pl.pniedziela.web.domain.User;

@@ -26,10 +26,14 @@
 	$(function() {
 		$('#grid').w2grid({
 			name : 'grid',
-			header : 'List of Names',
+			header : 'List of Bans',
 			show : {
 				toolbar : true,
-				footer : true
+				footer : true,
+				toolbarAdd : true,
+				toolbarDelete : true,
+				toolbarSave : true,
+				toolbarEdit : true
 			},
 			columns : [ {
 				field : 'recid',
@@ -39,54 +43,82 @@
 				attr : 'align=center'
 			}, {
 				field : 'username',
-				caption : '<fmt:message key="admin.logs.username" />',
+				caption : '<fmt:message key="admin.bans.username" />',
 				size : '15%',
 				sortable : true,
 				attr : 'align=center'
 			}, {
-				field : 'date',
-				caption : '<fmt:message key="admin.logs.date" />',
+				field : 'bannedFromDate',
+				caption : '<fmt:message key="admin.bans.fromdate" />',
 				size : '25%',
 				sortable : true,
 				resizable : true
 			}, {
-				field : 'action',
-				caption : '<fmt:message key="admin.logs.action" />',
+				field : 'bannedToDate',
+				caption : '<fmt:message key="admin.bans.todate" />',
 				size : '30%',
+				sortable : true,
 				resizable : true
 			}, {
-				field : 'ipaddress',
-				caption : '<fmt:message key="admin.logs.ipaddress" />',
+				field : 'banauthor',
+				caption : '<fmt:message key="admin.bans.author" />',
 				size : '30%',
+				sortable : true,
 				resizable : true
-			}, ],
+			}, {
+				field : 'reason',
+				caption : '<fmt:message key="admin.bans.reason" />',
+				size : '30%',
+				sortable : true,
+				resizable : true
+			} ],
 
 			searches : [ {
 				field : 'username',
-				caption : '<fmt:message key="admin.logs.username" />',
+				caption : '<fmt:message key="admin.bans.username" />',
 				type : 'text'
 			}, {
-				field : 'date',
-				caption : '<fmt:message key="admin.logs.date" />',
+				field : 'bannedFromDate',
+				caption : '<fmt:message key="admin.bans.fromdate" />',
+				type : 'date'
+			}, {
+				field : 'bannedToDate',
+				caption : '<fmt:message key="admin.bans.todate" />',
+				type : 'date'
+			}, {
+				field : 'banauthor',
+				caption : '<fmt:message key="admin.bans.author" />',
 				type : 'text'
 			}, {
-				field : 'action',
-				caption : '<fmt:message key="admin.logs.action" />',
+				field : 'reason',
+				caption : '<fmt:message key="admin.bans.reason" />',
 				type : 'text'
 			}, ],
 			sortData : [ {
-				field : 'date',
+				field : 'todate',
 				direction : 'ASC'
 			} ],
+			onAdd : function(event) {
+				w2alert('add');
+			},
+			onEdit : function(event) {
+				w2alert('edit');
+			},
+			onDelete : function(event) {
+				console.log('delete has default behaviour');
+			},
+			onSubmit : function(event) {
+				w2alert('save');
+			},
 			records : []
 		});
 
 		w2utils.settings.RESTfull = true;
-		w2ui['grid'].load('./logs/json.json');
+		w2ui['grid'].load('./bans/json.json');
 
 		w2ui.grid.on('reload', function(event) {
 			event.preventDefault();
-			w2ui['grid'].load('./logs/json.json');
+			w2ui['grid'].load('./bans/json.json');
 		});
 	});
 

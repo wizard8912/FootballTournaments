@@ -1,16 +1,15 @@
 package pl.pniedziela.web.domain;
 
-import java.util.Date;
-
 public class UserStats {
 
 	private String username;
-	private Date registerDate;
-	private Date lastSuccessLogin;
-	private Date lastFailedLogin;
+	private String registerDate;
+	private String lastSuccessLogin;
+	private String lastFailedLogin;
 	private int loginCount;
 
-	public UserStats(String username, Date registerDate, Date lastSuccessLogin, Date lastFailedLogin, int loginCount) {
+	public UserStats(String username, String registerDate, String lastSuccessLogin, String lastFailedLogin,
+			int loginCount) {
 		super();
 		this.username = username;
 		this.registerDate = registerDate;
@@ -31,28 +30,28 @@ public class UserStats {
 		this.username = username;
 	}
 
-	public Date getRegisterDate() {
+	public String getRegisterDate() {
 		return registerDate;
 	}
 
-	public void setRegisterDate(Date registerDate) {
+	public void setRegisterDate(String registerDate) {
 		this.registerDate = registerDate;
 	}
 
-	public Date getLastSuccessLogin() {
+	public String getLastSuccessLogin() {
 
 		return lastSuccessLogin;
 	}
 
-	public void setLastSuccessLogin(Date lastSuccessLogin) {
+	public void setLastSuccessLogin(String lastSuccessLogin) {
 		this.lastSuccessLogin = lastSuccessLogin;
 	}
 
-	public Date getLastFailedLogin() {
+	public String getLastFailedLogin() {
 		return lastFailedLogin;
 	}
 
-	public void setLastFailedLogin(Date lastFailedLogin) {
+	public void setLastFailedLogin(String lastFailedLogin) {
 		this.lastFailedLogin = lastFailedLogin;
 	}
 

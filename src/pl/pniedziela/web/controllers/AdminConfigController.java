@@ -14,7 +14,7 @@ import pl.pniedziela.web.service.AppConfigService;
 import pl.pniedziela.web.service.UserService;
 
 @Controller
-public class AdminController {
+public class AdminConfigController {
 
 	@Autowired
 	AppConfigService appConfigService;

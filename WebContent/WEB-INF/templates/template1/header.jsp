@@ -77,6 +77,9 @@
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									href='<c:url value="/admin/configure"/>'><fmt:message
 											key="title.configuration" /></a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="/admin/bans"/>'><fmt:message
+											key="title.bans" /></a></li>
 								<li role="presentation" class="divider"></li>
 							</ul>
 						</div>

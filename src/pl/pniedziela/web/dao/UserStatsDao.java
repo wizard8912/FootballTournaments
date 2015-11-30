@@ -2,6 +2,8 @@ package pl.pniedziela.web.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +34,12 @@ public class UserStatsDao {
 
 						UserStats userStats = new UserStats();
 						userStats.setUsername(rs.getString("username"));
-						userStats.setRegisterDate(rs.getDate("registerDate"));
-						userStats.setLastSuccessLogin(rs.getDate("lastSuccessLogin"));
-						userStats.setLastFailedLogin(rs.getDate("lastFailedLogin"));
+						userStats.setRegisterDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+								.format(new Date(rs.getTimestamp("registerDate").getTime())));
+						userStats.setLastSuccessLogin(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+								.format(new Date(rs.getTimestamp("lastSuccessLogin").getTime())));
+						userStats.setLastFailedLogin(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+								.format(new Date(rs.getTimestamp("lastFailedLogin").getTime())));
 						userStats.setLoginCount(rs.getInt("loginCount"));
 
 						return userStats;

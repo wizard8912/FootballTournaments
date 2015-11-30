@@ -2,9 +2,12 @@ package pl.pniedziela.web.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -37,5 +40,43 @@ public class ToolsDao {
 					}
 				});
 
+	}
+
+	public JSONArray getUsersRoles() {
+
+		final JSONArray array = new JSONArray();
+		jdbc.query("SELECT role FROM football_tournaments.authorities_dict;", new ResultSetExtractor<List<String>>() {
+
+			@Override
+			public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				while (rs.next()) {
+					array.put(rs.getString("role"));
+				}
+				return null;
+			}
+		}
+
+		);
+
+		return array;
+	}
+
+	public JSONArray getCountriesNames() {
+
+		final JSONArray array = new JSONArray();
+		jdbc.query("SELECT name FROM football_tournaments.countries;", new ResultSetExtractor<List<String>>() {
+
+			@Override
+			public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				while (rs.next()) {
+					array.put(rs.getString("name"));
+				}
+				return null;
+			}
+		}
+
+		);
+
+		return array;
 	}
 }
