@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
@@ -74,6 +75,28 @@ public class ToolsDao {
 				return null;
 			}
 		}
+
+		);
+
+		return array;
+	}
+
+	public JSONArray getActions(String lang) {
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("lang", lang);
+		final JSONArray array = new JSONArray();
+		jdbc.query("CALL `football_tournaments`.`sp_getAllActions`(:lang);", params,
+				new ResultSetExtractor<List<String>>() {
+
+					@Override
+					public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+						while (rs.next()) {
+							array.put(rs.getString("action"));
+						}
+						return null;
+					}
+				}
 
 		);
 

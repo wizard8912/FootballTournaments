@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import pl.pniedziela.web.dao.ToolsDao;
 import pl.pniedziela.web.service.AdminService;
 
 @Controller
@@ -18,11 +19,15 @@ public class AdminLogsController {
 	AdminService adminService;
 
 	@Autowired
+	ToolsDao tools;
+
+	@Autowired
 	SessionLocaleResolver res;
 
 	@RequestMapping("admin/logs")
-	public String getUsersLogs(Model model) {
-
+	public String getUsersLogs(Model model, HttpServletRequest request) {
+		String lang = res.resolveLocale(request).toLanguageTag();
+		model.addAttribute("actions", tools.getActions(lang).toString().replaceAll("\"", "'"));
 		return "usersLogs";
 	}
 

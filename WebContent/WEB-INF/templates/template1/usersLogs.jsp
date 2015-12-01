@@ -68,10 +68,10 @@
 			}, {
 				field : 'date',
 				caption : '<fmt:message key="admin.logs.date" />',
-				type : 'text'
+				type : 'date'
 			}, {
-				field : 'action',
-				caption : '<fmt:message key="admin.logs.action" />',
+				field : 'ipaddress',
+				caption : '<fmt:message key="admin.logs.ipaddress" />',
 				type : 'text'
 			}, ],
 			sortData : [ {
@@ -83,6 +83,16 @@
 
 		w2utils.settings.RESTfull = true;
 		w2ui['grid'].load('./logs/json.json');
+
+		w2ui['grid'].searches[0] = {
+			field : 'action',
+			caption : '<fmt:message key="admin.logs.action" />',
+			type : 'list'
+		};
+
+		w2ui['grid'].searches[0].options = {};
+
+		w2ui['grid'].searches[0].options.items = ${ actions };
 
 		w2ui.grid.on('reload', function(event) {
 			event.preventDefault();

@@ -17,6 +17,8 @@ public class User {
 	@NotBlank(message = "validation.user.pass.notblank")
 	@Size(min = 6, max = 40, message = "validation.user.pass.size")
 	private String password;
+	@Size(min = 6, max = 40, message = "validation.user.pass.size")
+	private String confPassword;
 	@Size(min = 3, max = 45, message = "validation.user.firstname.size")
 	private String firstname;
 	@Size(min = 3, max = 45, message = "validation.user.lastname.size")
@@ -24,7 +26,7 @@ public class User {
 	private int country;
 	@Size(min = 3, max = 30, message = "validation.user.city.size")
 	private String city;
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past(message = "validation.user.birthdate.pastdate")
 	private Date birthdate;
 	@Email(message = "validation.user.email")
@@ -35,21 +37,6 @@ public class User {
 	@NotBlank(message = "validation.user.forgotPassA.notblank")
 	@Size(min = 6, max = 100, message = "validation.user.forgotPassA.size")
 	private String forgotPassA;
-
-	public User(String username, String password, String firstname, String lastname, int country, String city,
-			Date birthdate, String email, String forgotPassQ, String forgotPassA) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.country = country;
-		this.city = city;
-		this.birthdate = birthdate;
-		this.email = email;
-		this.forgotPassQ = forgotPassQ;
-		this.forgotPassA = forgotPassA;
-	}
 
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -69,6 +56,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfPassword() {
+		return confPassword;
+	}
+
+	public void setConfPassword(String confPassword) {
+		this.confPassword = confPassword;
 	}
 
 	public String getFirstname() {

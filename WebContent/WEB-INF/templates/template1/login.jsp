@@ -3,48 +3,95 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<div style='width: 100%; float: left; text-align: center;'>
-	<div>
-		<c:if test="${error != null && ban == null}">
-			<fmt:message key="${error}" />
-		</c:if>
-		<c:if test="${ ban != null }">
-			<fmt:message key="login.userIsBannedFromDate" /> ${ban.fromDate} <fmt:message
-				key="login.userIsBannedToDate" /> ${ban.toDate}. 
-				<c:if test="${ ban.reason != null }">
-				<fmt:message key="login.userIsBannedReason" /> ${ban.reason}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+
+			<c:if test="${error != null && ban == null}">
+				<div class="alert alert-danger text-center" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign"
+						aria-hidden="true"></span> <span class="sr-only">Error:</span>
+					<fmt:message key="${error}" />
+				</div>
+			</c:if>
+			<c:if test="${ ban != null }">
+				<div class="alert alert-danger text-center" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign"
+						aria-hidden="true"></span> <span class="sr-only">Error:</span>
+					<fmt:message key="login.userIsBannedFromDate" />
+					${ban.fromDate}
+					<fmt:message key="login.userIsBannedToDate" />
+					${ban.toDate}.
+					<c:if test="${ ban.reason != null }">
+						<fmt:message key="login.userIsBannedReason" /> ${ban.reason}
 				</c:if>
-		</c:if>
+				</div>
+			</c:if>
+
+		</div>
 	</div>
-	<form name='form_login'
-		action='${ pageContext.request.contextPath }/j_spring_security_check'
-		method='POST' accept-charset="UTF-8">
-		<div>
-			<fmt:message key="login.username" />
-		</div>
-		<div>
-			<input type='text' name='j_username' value=''>
-		</div>
-		<div>
-			<fmt:message key="login.password" />
-		</div>
-		<div>
-			<input type='password' name='j_password' value=''>
-		</div>
-		<div>
-			<fmt:message key="login.rememberme" />
-		</div>
-		<div>
-			<input type='checkbox' name='_spring_security_remember_me'
-				checked="checked">
-		</div>
-		<div>
-			<input name="submit" type="submit"
-				value="<fmt:message key="login.login" />">
-		</div>
-		<div>
-			<a href="<c:url value='/forgotPass' />"><fmt:message
-					key="login.forgotyourpass" /></a>
-		</div>
-	</form>
 </div>
+
+<form name='form_login'
+	action='${ pageContext.request.contextPath }/j_spring_security_check'
+	method='POST' accept-charset="UTF-8">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<br />
+				<div class="panel panel-default signup">
+					<div class="panel-heading">
+						<h1 class="panel-title">
+							<fmt:message key="title.login" />
+						</h1>
+					</div>
+					<div class="panel-body">
+
+						<div class="form-group">
+							<label class="col-md-4 control-label"><fmt:message
+									key="login.username" /></label>
+							<div class="col-md-8">
+								<input class="form-control" type='text' name='j_username'
+									value=''>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label"><fmt:message
+									key="login.password" /></label>
+							<div class="col-md-8">
+								<input class="form-control" type='password' name='j_password'
+									value=''>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label"></label>
+							<div class="col-md-8">
+								<input type='checkbox' name='_spring_security_remember_me'
+									checked="checked">
+								<fmt:message key="login.rememberme" />
+								<div class="pull-right">
+									<input class="btn btn-success" name="submit" type="submit"
+										value="<fmt:message key="login.login" />">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label"></label>
+							<div class="col-md-8">
+								<div class="pull-left">
+									<a href="<c:url value='/forgotPass' />"><fmt:message
+											key="login.forgotyourpass" /></a>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label"></label>
+							<div class="col-md-8"></div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

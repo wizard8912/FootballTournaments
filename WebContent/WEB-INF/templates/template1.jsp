@@ -4,14 +4,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<link href="/FootballTournaments/static/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link
+	href="/FootballTournaments/static/bootstrap/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
 
 
-<tiles:insertAttribute name="includes"></tiles:insertAttribute>
+<tiles:insertAttribute name="headIncludes"></tiles:insertAttribute>
 
 </head>
 <body>
+	<script type="text/javascript"
+		src="/FootballTournaments/static/jquery/jquery-1.8.3.min.js"
+		charset="UTF-8"></script>
+	<script type="text/javascript"
+		src="/FootballTournaments/static/bootstrap/js/bootstrap.min.js"></script>
 
 	<div class="header">
 		<tiles:insertAttribute name="header"></tiles:insertAttribute>
@@ -25,7 +36,7 @@
 	<div class="footer">
 		<tiles:insertAttribute name="footer"></tiles:insertAttribute>
 	</div>
-
+	<tiles:insertAttribute name="bodyIncludes"></tiles:insertAttribute>
 
 </body>
 </html>
