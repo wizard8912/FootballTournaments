@@ -15,7 +15,12 @@
 
 
 <tiles:insertAttribute name="headIncludes"></tiles:insertAttribute>
-
+<style>
+.help-block {
+	text-align: right;
+	padding-right: 30px;
+}
+</style>
 </head>
 <body>
 	<script type="text/javascript"

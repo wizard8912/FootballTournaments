@@ -1,7 +1,8 @@
 {
-    "locale"         : "en-US",
-    "dateFormat"    : "m/d/yyyy",
-    "timeFormat"    : "h12",
+    "locale"         : "en-uk",
+    "date_format"    : "dd/mm/yyyy",
+    "time_format"    : "h12",
+    "date_display"   : "dd/mm/yyyy",
     "currency"       : "^[\\$]?[-+]?[0-9]*[\\.]?[0-9]+$",
     "currencyPrefix" : "$",
     "currencySuffix" : "",

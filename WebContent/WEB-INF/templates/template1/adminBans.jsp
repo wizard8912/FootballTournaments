@@ -15,7 +15,7 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript"
-	src="http://w2ui.com/src/w2ui-1.4.3.min.js"></script>
+	src="${pageContext.request.contextPath}/static/w2ui.js"></script>
 </head>
 <body>
 	<div id="grid" style="width: 100%; height: 600px;"></div>
@@ -44,31 +44,52 @@
 			}, {
 				field : 'username',
 				caption : '<fmt:message key="admin.bans.username" />',
-				size : '15%',
+				size : '200px',
 				sortable : true,
 				attr : 'align=center'
 			}, {
 				field : 'bannedFromDate',
 				caption : '<fmt:message key="admin.bans.fromdate" />',
-				size : '25%',
+				size : '100px',
+				attr : 'align=center',
 				sortable : true,
-				resizable : true
+				resizable : true,
+				render : 'date'
+			}, {
+				field : 'bannedFromTime',
+				caption : '<fmt:message key="admin.bans.fromtime" />',
+				size : '100px',
+				attr : 'align=center',
+				sortable : true,
+				resizable : true,
+				render : 'time'
 			}, {
 				field : 'bannedToDate',
 				caption : '<fmt:message key="admin.bans.todate" />',
-				size : '30%',
+				size : '100px',
+				attr : 'align=center',
 				sortable : true,
-				resizable : true
+				resizable : true,
+				render : 'date'
+			}, {
+				field : 'bannedToTime',
+				caption : '<fmt:message key="admin.bans.totime" />',
+				size : '100px',
+				attr : 'align=center',
+				sortable : true,
+				resizable : true,
+				render : 'time'
 			}, {
 				field : 'banauthor',
 				caption : '<fmt:message key="admin.bans.author" />',
-				size : '30%',
+				size : '200px',
+				attr : 'align=center',
 				sortable : true,
 				resizable : true
 			}, {
 				field : 'reason',
 				caption : '<fmt:message key="admin.bans.reason" />',
-				size : '30%',
+				size : '40%',
 				sortable : true,
 				resizable : true
 			} ],
@@ -85,6 +106,14 @@
 				field : 'bannedToDate',
 				caption : '<fmt:message key="admin.bans.todate" />',
 				type : 'date'
+			}, {
+				field : 'bannedFromTime',
+				caption : '<fmt:message key="admin.bans.fromtime" />',
+				type : 'time'
+			}, {
+				field : 'bannedToTime',
+				caption : '<fmt:message key="admin.bans.totime" />',
+				type : 'time'
 			}, {
 				field : 'banauthor',
 				caption : '<fmt:message key="admin.bans.author" />',

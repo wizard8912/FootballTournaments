@@ -1,7 +1,5 @@
 package pl.pniedziela.web.service;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,6 +31,11 @@ public class UserService {
 		return userDao.findByEmail(email);
 	}
 
+	public User findById(int id) {
+
+		return userDao.findById(id);
+	}
+
 	public void log(String username, String operation, String ipaddress) {
 
 		userDao.log(username, operation, ipaddress);
@@ -61,5 +64,10 @@ public class UserService {
 	public boolean deleteAccount(User user) {
 
 		return userDao.deleteAccount(user);
+	}
+
+	public Integer getUserRoleIdByUserId(Integer userId) {
+
+		return userDao.getUserRoleIdByUserId(userId);
 	}
 }

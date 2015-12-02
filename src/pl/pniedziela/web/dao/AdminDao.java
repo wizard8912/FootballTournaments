@@ -36,9 +36,8 @@ public class AdminDao {
 				JSONObject obj = new JSONObject();
 				obj.put("recid", rs.getInt("id"));
 				obj.put("username", rs.getString("username"));
-				Date date = new Date(rs.getTimestamp("date").getTime());
-				String fdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
-				obj.put("date", fdate);
+				obj.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date(rs.getTimestamp("date").getTime())));
+				obj.put("time", new SimpleDateFormat("HH:mm").format(new Date(rs.getTimestamp("date").getTime())));
 				obj.put("action", rs.getString("action"));
 				obj.put("ipaddress", rs.getString("ipaddress"));
 
@@ -61,10 +60,14 @@ public class AdminDao {
 				JSONObject obj = new JSONObject();
 				obj.put("recid", rs.getInt("id"));
 				obj.put("username", rs.getString("username"));
-				obj.put("bannedFromDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				obj.put("bannedFromDate", new SimpleDateFormat("yyyy-MM-dd")
 						.format(new Date(rs.getTimestamp("bannedFromDate").getTime())));
-				obj.put("bannedToDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-						.format(new Date(rs.getTimestamp("bannedToDate").getTime())));
+				obj.put("bannedFromTime",
+						new SimpleDateFormat("HH:mm").format(new Date(rs.getTimestamp("bannedFromDate").getTime())));
+				obj.put("bannedToDate",
+						new SimpleDateFormat("yyyy-MM-dd").format(new Date(rs.getTimestamp("bannedToDate").getTime())));
+				obj.put("bannedToTime",
+						new SimpleDateFormat("HH:mm").format(new Date(rs.getTimestamp("bannedToDate").getTime())));
 				obj.put("banauthor", rs.getString("author"));
 				obj.put("reason", rs.getString("reason"));
 
@@ -92,8 +95,10 @@ public class AdminDao {
 				obj.put("email", rs.getString("email"));
 				obj.put("birthdate",
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date(rs.getTimestamp("birthdate").getTime())));
-				obj.put("registerdate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-						.format(new Date(rs.getTimestamp("registerdate").getTime())));
+				obj.put("registerdate",
+						new SimpleDateFormat("yyyy-MM-dd").format(new Date(rs.getTimestamp("registerdate").getTime())));
+				obj.put("registertime",
+						new SimpleDateFormat("HH:mm").format(new Date(rs.getTimestamp("registerdate").getTime())));
 				obj.put("country", rs.getString("country"));
 				obj.put("role", rs.getString("role"));
 
@@ -104,5 +109,16 @@ public class AdminDao {
 		});
 
 		return json;
+	}
+
+	public void deleteUser(Integer userId, String userAdmin, String ipaddress) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		params.addValue("userId", userId);
+		params.addValue("userAdmin", userAdmin);
+		params.addValue("ipaddress", ipaddress);
+		System.out.println(userAdmin);
+		jdbc.update("CALL `football_tournaments`.`sp_adminDeleteUser`(:userId, :userAdmin, :ipaddress);", params);
+
 	}
 }

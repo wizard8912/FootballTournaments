@@ -15,7 +15,7 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript"
-	src="http://w2ui.com/src/w2ui-1.4.3.min.js"></script>
+	src="${pageContext.request.contextPath}/static/w2ui.js"></script>
 </head>
 <body>
 	<div id="grid" style="width: 100%; height: 600px;"></div>
@@ -46,9 +46,17 @@
 			}, {
 				field : 'date',
 				caption : '<fmt:message key="admin.logs.date" />',
-				size : '25%',
+				size : '100px',
 				sortable : true,
-				resizable : true
+				resizable : true,
+				render : 'date'
+			}, {
+				field : 'time',
+				caption : '<fmt:message key="admin.logs.time" />',
+				size : '100px',
+				sortable : true,
+				resizable : true,
+				render : 'time'
 			}, {
 				field : 'action',
 				caption : '<fmt:message key="admin.logs.action" />',
@@ -69,6 +77,10 @@
 				field : 'date',
 				caption : '<fmt:message key="admin.logs.date" />',
 				type : 'date'
+			}, {
+				field : 'time',
+				caption : '<fmt:message key="admin.logs.time" />',
+				type : 'time'
 			}, {
 				field : 'ipaddress',
 				caption : '<fmt:message key="admin.logs.ipaddress" />',
@@ -92,7 +104,7 @@
 
 		w2ui['grid'].searches[0].options = {};
 
-		w2ui['grid'].searches[0].options.items = ${ actions };
+		w2ui['grid'].searches[0].options.items = ${actions};
 
 		w2ui.grid.on('reload', function(event) {
 			event.preventDefault();

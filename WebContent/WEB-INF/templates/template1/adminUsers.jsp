@@ -15,11 +15,10 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript"
-	src="http://w2ui.com/src/w2ui-1.4.3.min.js"></script>
+	src="${pageContext.request.contextPath}/static/w2ui.js"></script>
 </head>
 <body>
 	<div id="grid" style="width: 100%; height: 600px;"></div>
-
 
 </body>
 <script>
@@ -27,6 +26,8 @@
 		$('#grid').w2grid({
 			name : 'grid',
 			header : 'List of Users',
+			url : 'users/delete',
+			message : 'aaaaa',
 			show : {
 				toolbar : true,
 				footer : true,
@@ -76,7 +77,9 @@
 				caption : '<fmt:message key="admin.users.birthdate" />',
 				size : '25%',
 				sortable : true,
-				resizable : true
+				resizable : true,
+				attr : 'align=center',
+				render : 'date'
 			}, {
 				field : 'email',
 				caption : '<fmt:message key="admin.users.email" />',
@@ -88,7 +91,17 @@
 				caption : '<fmt:message key="admin.users.registerdate" />',
 				size : '30%',
 				sortable : true,
-				resizable : true
+				resizable : true,
+				attr : 'align=center',
+				render : 'date'
+			}, {
+				field : 'registertime',
+				caption : '<fmt:message key="admin.users.registertime" />',
+				size : '30%',
+				sortable : true,
+				resizable : true,
+				attr : 'align=center',
+				render : 'time'
 			}, {
 				field : 'role',
 				caption : '<fmt:message key="admin.users.role" />',
@@ -125,19 +138,25 @@
 				field : 'registerdate',
 				caption : '<fmt:message key="admin.users.registerdate" />',
 				type : 'date'
+			}, {
+				field : 'registertime',
+				caption : '<fmt:message key="admin.users.registertime" />',
+				type : 'time'
 			}, ],
 			sortData : [ {
 				field : 'todate',
 				direction : 'ASC'
 			} ],
 			onAdd : function(event) {
-				w2alert('add');
+				w2alert(event);
+				
 			},
 			onEdit : function(event) {
 				w2alert('edit');
 			},
-			onDelete : function(event) {
-				console.log('delete has default behaviour');
+			onDelete : function(target,data) {
+				console.log(target);
+				console.log(data);
 			},
 			onSubmit : function(event) {
 				w2alert('save');
@@ -145,7 +164,7 @@
 			records : []
 		});
 
-		w2utils.settings.RESTfull = true;
+		w2utils.settings.RESTfull = false;
 		w2ui['grid'].load('./users/json.json');
 		w2ui['grid'].searches[0] = {
 			field : 'role',

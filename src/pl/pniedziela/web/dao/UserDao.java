@@ -110,6 +110,36 @@ public class UserDao {
 			return userList.get(0);
 	}
 
+	public User findById(int id) {
+
+		List<User> userList = jdbc.query("CALL `football_tournaments`.`sp_findUserById`(:id);",
+				new MapSqlParameterSource("id", id), new RowMapper<User>() {
+
+					@Override
+					public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+						User user = new User();
+						user.setUsername(rs.getString("username"));
+						user.setPassword(rs.getString("password"));
+						user.setFirstname(rs.getString("firstname"));
+						user.setLastname(rs.getString("lastname"));
+						user.setEmail(rs.getString("email"));
+						user.setCountry(rs.getInt("country"));
+						user.setCity(rs.getString("city"));
+						user.setBirthdate(rs.getDate("birthdate"));
+						user.setForgotPassQ(rs.getString("forgotPassQ"));
+						user.setForgotPassA(rs.getString("forgotPassA"));
+
+						return user;
+					}
+				});
+
+		if (userList.isEmpty())
+			return null;
+		else
+			return userList.get(0);
+	}
+
 	public void log(String username, String operation, String ipaddress) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("username", username);
@@ -164,6 +194,17 @@ public class UserDao {
 			return true;
 		else
 			return false;
+	}
+
+	public Integer getUserRoleIdByUserId(Integer userId) {
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("userId", userId);
+
+		Integer result = jdbc.queryForObject("CALL `football_tournaments`.`sp_getUserRoleIdByUserId`(:userId);", params,
+				Integer.class);
+
+		return result;
 	}
 
 }

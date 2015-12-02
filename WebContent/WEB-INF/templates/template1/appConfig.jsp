@@ -5,49 +5,155 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<h2>
-	<fmt:message key="title.appConfig" />
-</h2>
-<div>
-	<c:if test="${alert != null}">
-		<fmt:message key="${alert}" />
-	</c:if>
-</div>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
+
+
+<c:if test="${alert != null}">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="alert alert-success text-center" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign"
+						aria-hidden="true"></span> <span class="sr-only">Success:</span>
+					<fmt:message key="${alert}" />
+				</div>
+			</div>
+		</div>
+	</div>
+</c:if>
+<c:if test="${error != null}">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="alert alert-danger text-center" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign"
+						aria-hidden="true"></span> <span class="sr-only">Error:</span>
+					<fmt:message key="${error}" />
+				</div>
+			</div>
+		</div>
+	</div>
+</c:if>
 
 <form id="details" method="post"
 	action="${pageContext.request.contextPath}/admin/configure">
-
-	<table class="formtable">
-		<fmt:message key="appConfig.banConfig" />
-		<tr>
-			<td><fmt:message key="appConfig.banConfig.checkLastTime" /></td>
-			<td><input class="control" name="checkTimeD" id="checkTimeD"
-				value="${checkTimeD}" type="text" />D</td>
-			<td><input class="control" name="checkTimeH" id="checkTimeH"
-				value="${checkTimeH}" type="text" />H</td>
-			<td><input class="control" name="checkTimeM" id="checkTimeM"
-				value="${checkTimeM}" type="text" />M</td>
-		</tr>
-		<tr>
-			<td><fmt:message key="appConfig.banConfig.banForTime" /></td>
-			<td><input class="control" name="banForTimeD" id="banForTimeD"
-				value="${banForTimeD}" type="text" />D</td>
-			<td><input class="control" name="banForTimeH" id="banForTimeH"
-				value="${banForTimeH}" type="text" />H</td>
-			<td><input class="control" name="banForTimeM" id="banForTimeM"
-				value="${banForTimeM}" type="text" />M</td>
-		</tr>
-		<tr>
-			<td><fmt:message key="appConfig.banConfig.failedAttemps" /></td>
-			<td><input class="control" name="failedAttemps"
-				id="failedAttemps" value="${failedAttemps}" type="text" /></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><input class="control"
-				value="<fmt:message key="appConfig.banConfig.confirm" />"
-				type="submit" /></td>
-		</tr>
-
-	</table>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<br />
+				<div class="panel panel-default signup">
+					<div class="panel-heading">
+						<h1 class="panel-title">
+							<fmt:message key="title.appConfig" />
+						</h1>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="col-md-4 control-label"><fmt:message
+									key="appConfig.banConfig.checkLastTime" /></label>
+							<div class="col-md-2">
+								<label>D</label><input class="control" name="checkTimeD"
+									id="checkTimeD" data-validation="alphanumeric"
+									value="${checkTimeD}" type="text" />
+							</div>
+							<div class="col-md-2">
+								<label>H</label><input class="control" name="checkTimeH"
+									id="checkTimeH" data-validation="alphanumeric"
+									value="${checkTimeH}" type="text" />
+							</div>
+							<div class="col-md-2">
+								<label>M</label><input class="control" name="checkTimeM"
+									id="checkTimeM" data-validation="alphanumeric"
+									value="${checkTimeM}" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label"><fmt:message
+									key="appConfig.banConfig.banForTime" /></label>
+							<div class="col-md-2">
+								<label>D</label><input class="control" name="banForTimeD"
+									id="banForTimeD" value="${banForTimeD}" type="text" />
+							</div>
+							<div class="col-md-2">
+								<label>H</label><input class="control" name="banForTimeH"
+									id="banForTimeH" value="${banForTimeH}" type="text" />
+							</div>
+							<div class="col-md-2">
+								<label>M</label><input class="control" name="banForTimeM"
+									id="banForTimeM" value="${banForTimeM}" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label"><fmt:message
+									key="appConfig.banConfig.failedAttemps" /></label>
+							<div class="col-md-6">
+								<input class="control" name="failedAttemps" id="failedAttemps"
+									value="${failedAttemps}" type="text" />
+							</div>
+						</div>
+						<div class="form-group pull-right">
+							<input class="btn btn-success"
+								value="<fmt:message key="appConfig.banConfig.confirm" />"
+								type="submit" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
+
+<script>
+	var messages = {
+		errorTitle : '<fmt:message key="jquery.validate.errorTitle"/>',
+		requiredFields : '<fmt:message key="jquery.validate.requiredFields"/>',
+		badTime : '<fmt:message key="jquery.validate.badTime"/>',
+		badEmail : '<fmt:message key="jquery.validate.badEmail"/>',
+		badTelephone : '<fmt:message key="jquery.validate.badTelephone"/>',
+		badSecurityAnswer : '<fmt:message key="jquery.validate.badSecurityAnswer"/>',
+		badDate : '<fmt:message key="jquery.validate.badDate"/>',
+		lengthBadStart : '<fmt:message key="jquery.validate.lenghtBadStart"/>',
+		lengthBadEnd : '<fmt:message key="jquery.validate.lengthBadEnd"/>',
+		lengthTooLongStart : '<fmt:message key="jquery.validate.lengthTooLongStart"/>',
+		lengthTooShortStart : '<fmt:message key="jquery.validate.lengthTooShortStart"/>',
+		notConfirmed : '<fmt:message key="jquery.validate.notConfirmed"/>',
+		badDomain : '<fmt:message key="jquery.validate.badDomain"/>',
+		badUrl : '<fmt:message key="jquery.validate.badUrl"/>',
+		badCustomVal : '<fmt:message key="jquery.validate.badCustomVal"/>',
+		andSpaces : '<fmt:message key="jquery.validate.andSpaces"/>',
+		badInt : '<fmt:message key="jquery.validate.badInt"/>',
+		badSecurityNumber : '<fmt:message key="jquery.validate.badSecurityNumber"/>',
+		badUKVatAnswer : '<fmt:message key="jquery.validate.badUKVatAnswer"/>',
+		badStrength : '<fmt:message key="jquery.validate.badStrength"/>',
+		badNumberOfSelectedOptionsStart : '<fmt:message key="jquery.validate.badNumberOfSelectedOptionsStart"/>',
+		badNumberOfSelectedOptionsEnd : '<fmt:message key="jquery.validate.badNumberOfSelectedOptionsEnd"/>',
+		badAlphaNumeric : '<fmt:message key="jquery.validate.badAlphaNumeric"/>',
+		badAlphaNumericExtra : '<fmt:message key="jquery.validate.badAlphaNumericExtra"/>',
+		wrongFileSize : '<fmt:message key="jquery.validate.wrongFileSize"/>',
+		wrongFileType : '<fmt:message key="jquery.validate.wrongFileType"/>',
+		groupCheckedRangeStart : '<fmt:message key="jquery.validate.groupCheckedRangeStart"/>',
+		groupCheckedTooFewStart : '<fmt:message key="jquery.validate.groupCheckedTooFewStart"/>',
+		groupCheckedTooManyStart : '<fmt:message key="jquery.validate.groupCheckedTooManyStart"/>',
+		groupCheckedEnd : '<fmt:message key="jquery.validate.groupCheckedEnd"/>',
+		badCreditCard : '<fmt:message key="jquery.validate.badCreditCard"/>',
+		badCVV : '<fmt:message key="jquery.validate.badCVV"/>',
+		wrongFileDim : '<fmt:message key="jquery.validate.wrongFileDim"/>',
+		imageTooTall : '<fmt:message key="jquery.validate.imageTooTall"/>',
+		imageTooWide : '<fmt:message key="jquery.validate.imageTooWide"/>',
+		imageTooSmall : '<fmt:message key="jquery.validate.imageTooSmall"/>',
+		min : '<fmt:message key="jquery.validate.min"/>',
+		max : '<fmt:message key="jquery.validate.max"/>',
+		imageRatioNotAccepted : '<fmt:message key="jquery.validate.imageRatioNotAccepted"/>'
+	};
+
+	var lang = window['${pageContext.response.locale}'];
+	var $messages = $('#errors');
+	$.validate({
+		language : messages,
+		errorElement : 'div',
+		modules : 'security'
+	});
+</script>

@@ -26,4 +26,8 @@ public class AdminService {
 
 		return adminDao.getAllUsers();
 	}
+
+	public void deleteUser(Integer userId, String userAdmin, String ipaddress) {
+		adminDao.deleteUser(userId, userAdmin, ipaddress);
+	}
 }
