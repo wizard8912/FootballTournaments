@@ -117,8 +117,30 @@ public class AdminDao {
 		params.addValue("userId", userId);
 		params.addValue("userAdmin", userAdmin);
 		params.addValue("ipaddress", ipaddress);
-		System.out.println(userAdmin);
 		jdbc.update("CALL `football_tournaments`.`sp_adminDeleteUser`(:userId, :userAdmin, :ipaddress);", params);
 
+	}
+
+	public void changeUserByAdmin(MapSqlParameterSource params) {
+		jdbc.update(
+				"CALL `football_tournaments`.`sp_adminChangeUser`(:userId, :username, :firstname, :lastname, :city, :country, :birthdate, :email);",
+				params);
+	}
+
+	public void createUserByAdmin(MapSqlParameterSource params) {
+
+		Integer country = jdbc.queryForObject("CALL `football_tournaments`.`sp_getCountryIdByName`(:country);", params,
+				Integer.class);
+		params.addValue("countryId", country);
+		System.out.println(country);
+		jdbc.update(
+				"CALL `football_tournaments`.`sp_createNewUser`(:username, :password, :firstname, :lastname, :countryId, :city, :birthdate, :email, :forgotPassQ, :forgotPassA);",
+				params);
+
+	}
+
+	public void changeUserRole(MapSqlParameterSource params) {
+
+		jdbc.update("CALL `football_tournaments`.`sp_setUserRole`(:username, :role, :admin);", params);
 	}
 }

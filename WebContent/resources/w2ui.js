@@ -12810,7 +12810,7 @@ var w2confirm = function (msg, title, callBack) {
     // -- Implementation of core functionality
 
     w2form.prototype = {
-
+    		
         get: function (field, returnIndex) {
             if (arguments.length === 0) {
                 var all = [];
@@ -12840,6 +12840,7 @@ var w2confirm = function (msg, title, callBack) {
         },
 
         reload: function (callBack) {
+        	
             var url = (typeof this.url != 'object' ? this.url : this.url.get);
             if (url && this.recid != 0) {
                 // this.clear();
@@ -12982,9 +12983,11 @@ var w2confirm = function (msg, title, callBack) {
                 postData = null;
             }
             if (typeof postData == 'undefined' || postData == null) postData = {};
+            
             if (!this.url || (typeof this.url == 'object' && !this.url.get)) return;
             if (this.recid == null || typeof this.recid == 'undefined') this.recid = 0;
             // build parameters list
+            
             var params = {};
             // add list params
             params['cmd']   = 'get-record';
@@ -13004,6 +13007,7 @@ var w2confirm = function (msg, title, callBack) {
             if (typeof eventData.url == 'object' && eventData.url.get) url = eventData.url.get;
             if (this.last.xhr) try { this.last.xhr.abort(); } catch (e) {};
             // process url with routeData
+            
             if (!$.isEmptyObject(obj.routeData)) {
                 var info  = w2utils.parseRoute(url);
                 if (info.keys.length > 0) {
@@ -13044,17 +13048,22 @@ var w2confirm = function (msg, title, callBack) {
                     var data;
                     var responseText = obj.last.xhr.responseText;
                     if (status != 'error') {
+                    	
                         // default action
                         if (typeof responseText != 'undefined' && responseText != '') {
                             // check if the onLoad handler has not already parsed the data
+                        	
                             if (typeof responseText == "object") {
+
                                 data = responseText;
                             } else {
                                 // $.parseJSON or $.getJSON did not work because those expect perfect JSON data - where everything is in double quotes
                                 //
                                 // TODO: avoid (potentially malicious) code injection from the response.
-                                try { eval('data = '+ responseText); } catch (e) { }
+                            	
+                            	try { eval('data = '+ responseText); } catch (e) { }
                             }
+                            
                             if (typeof data == 'undefined') {
                                 data = {
                                     status       : 'error',
@@ -13081,6 +13090,7 @@ var w2confirm = function (msg, title, callBack) {
                     obj.trigger($.extend(eventData, { phase: 'after' }));
                     obj.refresh();
                     // call back
+                   
                     if (typeof callBack == 'function') callBack(data);
                 })
                 .fail(function (xhr, status, error) {
