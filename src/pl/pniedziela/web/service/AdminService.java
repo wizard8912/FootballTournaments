@@ -42,6 +42,19 @@ public class AdminService {
 
 	public void changeUserRole(MapSqlParameterSource params) {
 		adminDao.changeUserRole(params);
-		
+
+	}
+
+	public void deleteBan(String banId) {
+		adminDao.deleteBan(banId);
+	}
+
+	public JSONArray getUsernamesList() {
+		return adminDao.getUsernamesList();
+	}
+
+	public void addBanForUser(MapSqlParameterSource params) {
+		adminDao.addBanForUser(params);
+
 	}
 }

@@ -4,10 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -70,6 +73,7 @@ public class AdminDao {
 						new SimpleDateFormat("HH:mm").format(new Date(rs.getTimestamp("bannedToDate").getTime())));
 				obj.put("banauthor", rs.getString("author"));
 				obj.put("reason", rs.getString("reason"));
+				obj.put("active", rs.getString("active"));
 
 				json.put(obj);
 				return null;
@@ -142,5 +146,38 @@ public class AdminDao {
 	public void changeUserRole(MapSqlParameterSource params) {
 
 		jdbc.update("CALL `football_tournaments`.`sp_setUserRole`(:username, :role, :admin);", params);
+	}
+
+	public void deleteBan(String banId) {
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("banId", banId);
+
+		jdbc.update("CALL `football_tournaments`.`sp_deleteBan`(:banId);", params);
+	}
+
+	public JSONArray getUsernamesList() {
+
+		final JSONArray array = new JSONArray();
+		jdbc.query("CALL `football_tournaments`.`sp_getAllUsers`();", new ResultSetExtractor<List<String>>() {
+
+			@Override
+			public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				while (rs.next()) {
+					array.put(rs.getString("username"));
+				}
+				return null;
+			}
+		}
+
+		);
+
+		return array;
+	}
+
+	public void addBanForUser(MapSqlParameterSource params) {
+		System.out.println(params.getValue("username"));
+		jdbc.update("CALL `football_tournaments`.`sp_addUsernameBan`(:username, :todate, :admin, :reason);", params);
+
 	}
 }

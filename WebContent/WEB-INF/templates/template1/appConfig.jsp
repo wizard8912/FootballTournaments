@@ -15,7 +15,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="alert alert-success text-center" role="alert">
+				<div id="successstop" class="alert alert-success text-center"
+					role="alert">
 					<span class="glyphicon glyphicon-exclamation-sign"
 						aria-hidden="true"></span> <span class="sr-only">Success:</span>
 					<fmt:message key="${alert}" />
@@ -24,6 +25,7 @@
 		</div>
 	</div>
 </c:if>
+
 <c:if test="${error != null}">
 	<div class="container">
 		<div class="row">
@@ -37,6 +39,16 @@
 		</div>
 	</div>
 </c:if>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="errorstop" class="alert alert-danger text-center hidden"
+				role="alert"></div>
+		</div>
+	</div>
+</div>
+
+
 
 <form id="details" method="post"
 	action="${pageContext.request.contextPath}/admin/configure">
@@ -56,18 +68,21 @@
 									key="appConfig.banConfig.checkLastTime" /></label>
 							<div class="col-md-2">
 								<label>D</label><input class="control" name="checkTimeD"
-									id="checkTimeD" data-validation="alphanumeric"
-									value="${checkTimeD}" type="text" />
+									id="checkTimeD" data-validation="number"
+									data-validation-allowing="range[0;1000]" value="${checkTimeD}"
+									type="text" />
 							</div>
 							<div class="col-md-2">
 								<label>H</label><input class="control" name="checkTimeH"
-									id="checkTimeH" data-validation="alphanumeric"
-									value="${checkTimeH}" type="text" />
+									id="checkTimeH" data-validation="number"
+									data-validation-allowing="range[0;23]" value="${checkTimeH}"
+									type="text" />
 							</div>
 							<div class="col-md-2">
 								<label>M</label><input class="control" name="checkTimeM"
-									id="checkTimeM" data-validation="alphanumeric"
-									value="${checkTimeM}" type="text" />
+									id="checkTimeM" data-validation="number"
+									data-validation-allowing="range[0;59]" value="${checkTimeM}"
+									type="text" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -75,15 +90,21 @@
 									key="appConfig.banConfig.banForTime" /></label>
 							<div class="col-md-2">
 								<label>D</label><input class="control" name="banForTimeD"
-									id="banForTimeD" value="${banForTimeD}" type="text" />
+									id="banForTimeD" data-validation="number"
+									data-validation-allowing="range[0;1000]" value="${banForTimeD}"
+									type="text" />
 							</div>
 							<div class="col-md-2">
 								<label>H</label><input class="control" name="banForTimeH"
-									id="banForTimeH" value="${banForTimeH}" type="text" />
+									id="banForTimeH" data-validation="number"
+									data-validation-allowing="range[0;23]" value="${banForTimeH}"
+									type="text" />
 							</div>
 							<div class="col-md-2">
 								<label>M</label><input class="control" name="banForTimeM"
-									id="banForTimeM" value="${banForTimeM}" type="text" />
+									id="banForTimeM" data-validation="number"
+									data-validation-allowing="range[1;59]" value="${banForTimeM}"
+									type="text" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -91,6 +112,8 @@
 									key="appConfig.banConfig.failedAttemps" /></label>
 							<div class="col-md-6">
 								<input class="control" name="failedAttemps" id="failedAttemps"
+									data-validation="number"
+									data-validation-allowing="range[1;100]"
 									value="${failedAttemps}" type="text" />
 							</div>
 						</div>
@@ -150,10 +173,18 @@
 	};
 
 	var lang = window['${pageContext.response.locale}'];
-	var $messages = $('#errors');
+	var $messages = $('#errorstop');
 	$.validate({
 		language : messages,
-		errorElement : 'div',
-		modules : 'security'
+		validateOnBlur : false,
+		errorMessagePosition : $messages,
+		onError : function($form) {
+			$('#errorstop').removeClass("hidden");
+			$('#successstop').addClass("hidden");
+
+		},
+		onSuccess : function($form) {
+			$('#errorstop').addClass("hidden");
+		}
 	});
 </script>

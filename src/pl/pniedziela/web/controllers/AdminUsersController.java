@@ -37,7 +37,7 @@ public class AdminUsersController {
 	@Autowired
 	SessionLocaleResolver res;
 	@Autowired
-	private ApplicationContext context;
+	ApplicationContext context;
 
 	@RequestMapping("admin/users")
 	public String getUsersLogs(Model model) {

@@ -11,7 +11,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-	href="http://w2ui.com/src/w2ui-1.4.3.min.css" />
+	href="${pageContext.request.contextPath}/static/w2ui.css" />
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript"

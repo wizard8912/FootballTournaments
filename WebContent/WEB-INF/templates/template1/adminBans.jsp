@@ -11,7 +11,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-	href="http://w2ui.com/src/w2ui-1.4.3.min.css" />
+	href="${pageContext.request.contextPath}/static/w2ui.css" />
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript"
@@ -23,17 +23,16 @@
 
 </body>
 <script>
-	$(function() {
-		$('#grid').w2grid({
-			name : 'grid',
+	var config = {
+		grid : {
+			name : 'gridAdminBans',
 			header : 'List of Bans',
+			url : 'bans/delete',
 			show : {
 				toolbar : true,
 				footer : true,
 				toolbarAdd : true,
-				toolbarDelete : true,
-				toolbarSave : true,
-				toolbarEdit : true
+				toolbarDelete : true
 			},
 			columns : [ {
 				field : 'recid',
@@ -92,6 +91,12 @@
 				size : '40%',
 				sortable : true,
 				resizable : true
+			}, {
+				field : 'active',
+				caption : '<fmt:message key="admin.bans.active" />',
+				size : '50px',
+				sortable : true,
+				resizable : true
 			} ],
 
 			searches : [ {
@@ -128,30 +133,163 @@
 				direction : 'ASC'
 			} ],
 			onAdd : function(event) {
-				w2alert('add');
-			},
-			onEdit : function(event) {
-				w2alert('edit');
+				addBan();
+				var grid = this;
+				var formAddBan = w2ui.formAddBan;
 			},
 			onDelete : function(event) {
-				console.log('delete has default behaviour');
+
 			},
 			onSubmit : function(event) {
 				w2alert('save');
 			},
+			onReload : function(event) {
+				event.onComplete = function() {
+					var grid = this;
+					grid.load('./bans/json.json');
+				}
+
+			},
 			records : []
-		});
+		},
+		formAddBan : {
+			name : 'formAddBan',
+			fields : [ {
+				name : 'username',
+				type : 'list',
+				required : true,
+				html : {
+					caption : '<fmt:message key="admin.bans.username" />',
+					attr : 'size="25" maxlength="40"'
+				},
+				options : {
+					items : ${usersList}
+				}
+			}, {
+				name : 'todate',
+				type : 'date',
+				required : true,
+				html : {
+					caption : '<fmt:message key="admin.bans.todate" />',
+					attr : 'size="25" maxlength="40"'
+				}
+			}, {
+				name : 'totime',
+				type : 'time',
+				required : true,
+				html : {
+					caption : '<fmt:message key="admin.bans.totime" />',
+					attr : 'size="25"'
+				}
+			}, {
+				name : 'reason',
+				type : 'text',
+				required : true,
+				html : {
+					caption : '<fmt:message key="admin.bans.reason" />',
+					attr : 'size="25"'
+				}
+			} ],
+			actions : {
+				Save : function() {
+
+					var errors = this.validate();
+					if (errors.length > 0)
+						return;
+
+					$
+							.ajax({
+								url : 'bans/add',
+								dataType : 'text',
+								type : 'POST',
+								data : this.record,
+								success : function(response) {
+									w2popup
+											.open({
+												body : '<div class="w2ui-centered">'
+														+ response + '</div>',
+												buttons : '<button class="btn" onclick="w2popup.close();">Close</button> ',
+												width : 500,
+												height : 300,
+												overflow : 'hidden',
+												color : '#dff0d8',
+												speed : '0.3',
+												opacity : '0.8',
+												modal : true,
+												showClose : true,
+												showMax : true
+											});
+									w2ui.gridAdminBans.reload();
+									w2popup.close();
+								},
+								error : function(response) {
+									w2popup
+											.open({
+												body : '<div class="w2ui-centered">'
+														+ response + '</div>',
+												buttons : '<button class="btn" onclick="w2popup.close();">Close</button> ',
+												width : 500,
+												height : 300,
+												overflow : 'hidden',
+												color : '#f2dede',
+												speed : '0.3',
+												opacity : '0.8',
+												modal : true,
+												showClose : true,
+												showMax : true
+											});
+									w2ui.gridAdminBans.reload();
+								}
+
+							});
+
+					w2ui.gridAdminBans.selectNone();
+					w2popup.close();
+
+				}
+			}
+		}
+
+	}
+
+	$(function() {
+		$('#grid').w2grid(config.grid);
 
 		w2utils.settings.RESTfull = true;
-		w2ui['grid'].load('./bans/json.json');
-
-		w2ui.grid.on('reload', function(event) {
-			event.preventDefault();
-			w2ui['grid'].load('./bans/json.json');
-		});
 	});
 
 	w2utils
 			.locale('${ pageContext.request.contextPath }/static/w2grid-${pageContext.response.locale}.json');
+
+	function addBan() {
+		if (!w2ui.formAddBan) {
+			$().w2form(config.formAddBan);
+		}
+		$()
+				.w2popup(
+						'open',
+						{
+							title : '<fmt:message key="admin.bans.addban" />',
+							body : '<div id="formAddBan" style="width: 100%; height: 100%;"></div>',
+							style : 'padding: 15px 0px 0px 0px',
+							width : 500,
+							height : 400,
+							showMax : true,
+							onToggle : function(event) {
+								$(w2ui.formAddBan.box).hide();
+								event.onComplete = function() {
+									$(w2ui.formAddBan.box).show();
+									w2ui.formAddBan.resize();
+								}
+							},
+							onOpen : function(event) {
+								event.onComplete = function() {
+									// specifying an onOpen handler instead is equivalent to specifying an onBeforeOpen handler, which would make this code execute too early and hence not deliver.
+									$('#w2ui-popup #formAddBan').w2render(
+											'formAddBan');
+								}
+							}
+						});
+	}
 </script>
 </html>

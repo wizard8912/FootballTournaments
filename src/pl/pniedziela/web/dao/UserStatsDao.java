@@ -38,8 +38,11 @@ public class UserStatsDao {
 								.format(new Date(rs.getTimestamp("registerDate").getTime())));
 						userStats.setLastSuccessLogin(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 								.format(new Date(rs.getTimestamp("lastSuccessLogin").getTime())));
-						userStats.setLastFailedLogin(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-								.format(new Date(rs.getTimestamp("lastFailedLogin").getTime())));
+						try {userStats.setLastFailedLogin(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+								.format(new Date(rs.getTimestamp("lastFailedLogin").getTime())));}
+						catch(NullPointerException e){
+							userStats.setLastFailedLogin(null);
+						}
 						userStats.setLoginCount(rs.getInt("loginCount"));
 
 						return userStats;
