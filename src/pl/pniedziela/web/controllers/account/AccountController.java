@@ -1,4 +1,4 @@
-package pl.pniedziela.web.controllers;
+package pl.pniedziela.web.controllers.account;
 
 import java.util.ArrayList;
 import java.util.List;

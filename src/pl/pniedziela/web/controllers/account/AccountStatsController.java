@@ -1,4 +1,4 @@
-package pl.pniedziela.web.controllers;
+package pl.pniedziela.web.controllers.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

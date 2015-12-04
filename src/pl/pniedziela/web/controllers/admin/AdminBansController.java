@@ -1,4 +1,4 @@
-package pl.pniedziela.web.controllers;
+package pl.pniedziela.web.controllers.admin;
 
 import javax.servlet.http.HttpServletRequest;
 

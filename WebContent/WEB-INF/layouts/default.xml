@@ -9,91 +9,88 @@
 		<put-attribute name="bodyIncludes" value="" />
 		<put-attribute name="title" value="homepage" />
 		<put-attribute name="header"
-			value="/WEB-INF/templates/template1/header.jsp" />
+			value="/WEB-INF/templates/template1/site/header.jsp" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/content.jsp" />
+			value="/WEB-INF/templates/template1/site/content.jsp" />
 		<put-attribute name="footer"
-			value="/WEB-INF/templates/template1/footer.jsp" />
+			value="/WEB-INF/templates/template1/site/footer.jsp" />
 	</definition>
 
 	<definition name="home" extends="template.base">
 		<put-attribute name="title" value="Football Tournaments" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/home.jsp"></put-attribute>
+			value="/WEB-INF/templates/template1/site/home.jsp"></put-attribute>
 	</definition>
 
 	<definition name="login" extends="template.base">
 		<put-attribute name="title" value="Login page" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/login.jsp"></put-attribute>
+			value="/WEB-INF/templates/template1/site/login.jsp"></put-attribute>
 	</definition>
 
 	<definition name="register" extends="template.base">
 		<put-attribute name="title" value="Register page" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/register.jsp"></put-attribute>
+			value="/WEB-INF/templates/template1/site/register.jsp"></put-attribute>
 	</definition>
 
 	<definition name="forgotPass" extends="template.base">
 		<put-attribute name="title" value="Forgot pass" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/forgotPass.jsp" />
+			value="/WEB-INF/templates/template1/account/forgotPass.jsp" />
 	</definition>
 
 	<definition name="passAnswer" extends="template.base">
 		<put-attribute name="title" value="Restart pass" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/passAnswer.jsp" />
+			value="/WEB-INF/templates/template1/account/passAnswer.jsp" />
 	</definition>
 
 	<definition name="myAccount" extends="template.base">
 		<put-attribute name="title" value="My Account" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/myAccount.jsp" />
+			value="/WEB-INF/templates/template1/account/myAccount.jsp" />
 	</definition>
 
 	<definition name="changePassword" extends="template.base">
 		<put-attribute name="title" value="Change Password" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/changePassword.jsp" />
+			value="/WEB-INF/templates/template1/account/changePassword.jsp" />
 	</definition>
 
 	<definition name="userStats" extends="template.base">
 		<put-attribute name="title" value="User Stats" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/userStats.jsp" />
+			value="/WEB-INF/templates/template1/account/userStats.jsp" />
 	</definition>
 
 	<definition name="deleteAccount" extends="template.base">
 		<put-attribute name="title" value="Delete Account" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/deleteAccount.jsp" />
+			value="/WEB-INF/templates/template1/account/deleteAccount.jsp" />
 	</definition>
 
 	<definition name="appConfig" extends="template.base">
 		<put-attribute name="title" value="App Configuration" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/appConfig.jsp" />
+			value="/WEB-INF/templates/template1/admin/appConfig.jsp" />
 	</definition>
 
 	<definition name="usersLogs" extends="template.base">
 		<put-attribute name="title" value="Users logs" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/usersLogs.jsp" />
+			value="/WEB-INF/templates/template1/admin/usersLogs.jsp" />
 	</definition>
 
 	<definition name="adminBans" extends="template.base">
 		<put-attribute name="title" value="Bans" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/adminBans.jsp" />
+			value="/WEB-INF/templates/template1/admin/adminBans.jsp" />
 	</definition>
 
 	<definition name="adminUsers" extends="template.base">
 		<put-attribute name="title" value="Bans" />
 		<put-attribute name="content"
-			value="/WEB-INF/templates/template1/adminUsers.jsp" />
+			value="/WEB-INF/templates/template1/admin/adminUsers.jsp" />
 	</definition>
-
-
-
 </tiles-definitions>
