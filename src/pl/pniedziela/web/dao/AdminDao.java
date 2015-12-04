@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -26,6 +27,9 @@ public class AdminDao {
 	public void setDataSource(DriverManagerDataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
+
+	@Autowired
+	private StandardPasswordEncoder passEncoder;
 
 	public JSONArray getHistory(String lang) {
 
@@ -136,9 +140,11 @@ public class AdminDao {
 		Integer country = jdbc.queryForObject("CALL `football_tournaments`.`sp_getCountryIdByName`(:country);", params,
 				Integer.class);
 		params.addValue("countryId", country);
+		params.addValue("passEncoded", passEncoder.encode((CharSequence) params.getValue("password")));
+
 		System.out.println(country);
 		jdbc.update(
-				"CALL `football_tournaments`.`sp_createNewUser`(:username, :password, :firstname, :lastname, :countryId, :city, :birthdate, :email, :forgotPassQ, :forgotPassA);",
+				"CALL `football_tournaments`.`sp_createNewUser`(:username, :passEncoded, :firstname, :lastname, :countryId, :city, :birthdate, :email, :forgotPassQ, :forgotPassA);",
 				params);
 
 	}

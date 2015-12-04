@@ -100,12 +100,12 @@ public class AccountController {
 				userService.log(user.getUsername(), "account.successPassChange", ipaddress);
 				return "myAccount";
 			} else {
-				model.addAttribute("alert", "account.unsuccessPassChange");
+				model.addAttribute("error", "account.unsuccessPassChange");
 				userService.log(user.getUsername(), "account.unsuccessPassChange", ipaddress);
 				return "changePassword";
 			}
 		} else {
-			model.addAttribute("alert", "account.wrongPass");
+			model.addAttribute("error", "account.wrongPass");
 			userService.log(user.getUsername(), "account.wrongPass", ipaddress);
 			return "changePassword";
 		}
