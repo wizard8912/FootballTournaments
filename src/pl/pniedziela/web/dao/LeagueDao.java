@@ -45,6 +45,12 @@ public class LeagueDao {
 								&& Integer.parseInt(rs.getString("privateForUser")) > 0) {
 							league.setOnlyForMe(1);
 						}
+						league.setNumberOfGroups(rs.getInt("groupsNumber"));
+						league.setNumberOfTeams(rs.getInt("teamsNumber"));
+						league.setSystem(rs.getString("system"));
+						league.setDoubleGroupMatches(rs.getInt("doubleGroupMatches"));
+						league.setDoubleCupMatches(rs.getInt("doubleCupMatches"));
+						league.setDoubleFinalMatches(rs.getInt("doubleFinalMatches"));
 
 						return league;
 					}
@@ -53,9 +59,27 @@ public class LeagueDao {
 		return leagues;
 	}
 
-	public void addLeague(MapSqlParameterSource params) {
+	public void addLeague(League league, String username) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("fullname", league.getFullname());
+		params.addValue("shortname", league.getShortname());
+		params.addValue("level", league.getLevel());
+		params.addValue("logo", league.getLogo());
+		if (league.getOnlyForMe() == 1) {
+			params.addValue("onlyForMe", username);
+		} else {
+			params.addValue("onlyForMe", null);
+		}
+		params.addValue("countryId", league.getCountry());
+		params.addValue("numgroups", league.getNumberOfGroups());
+		params.addValue("numTeams", league.getNumberOfTeams());
+		params.addValue("doubleGroupMatches", league.getDoubleGroupMatches());
+		params.addValue("doubleCupMatches", league.getDoubleCupMatches());
+		params.addValue("doubleFinalMatches", league.getDoubleFinalMatches());
+		params.addValue("system", league.getSystem());
+
 		jdbc.update(
-				"CALL `football_tournaments`.`sp_addLeague`(:fullname, :shortname, :level, :logo, :onlyForMe, :countryName);",
+				"CALL `football_tournaments`.`sp_addLeague`(:fullname, :shortname, :level, :logo, :onlyForMe, :countryId, :numgroups, :numTeams, :doubleGroupMatches, :doubleCupMatches, :doubleFinalMatches, :system);",
 				params);
 	}
 }

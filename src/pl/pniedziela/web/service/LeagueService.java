@@ -19,8 +19,8 @@ public class LeagueService {
 		return leagueDao.getAllLeagues(username);
 	}
 
-	public void addLeague(MapSqlParameterSource params) {
-		leagueDao.addLeague(params);
+	public void addLeague(League league, String username) {
+		leagueDao.addLeague(league, username);
 
 	}
 }

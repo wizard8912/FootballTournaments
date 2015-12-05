@@ -10,6 +10,12 @@ public class League {
 	private String logo;
 	private String countryName;
 	private int onlyForMe;
+	private int numberOfGroups;
+	private int numberOfTeams;
+	private String system;
+	private int doubleGroupMatches;
+	private int doubleCupMatches;
+	private int doubleFinalMatches;
 
 	public League() {
 
@@ -79,10 +85,61 @@ public class League {
 		this.onlyForMe = onlyForMe;
 	}
 
+	public int getNumberOfGroups() {
+		return numberOfGroups;
+	}
+
+	public void setNumberOfGroups(int numberOfGroups) {
+		this.numberOfGroups = numberOfGroups;
+	}
+
+	public int getNumberOfTeams() {
+		return numberOfTeams;
+	}
+
+	public void setNumberOfTeams(int numberOfTeams) {
+		this.numberOfTeams = numberOfTeams;
+	}
+
+	public String getSystem() {
+		return system;
+	}
+
+	public void setSystem(String system) {
+		this.system = system;
+	}
+
+	public int getDoubleGroupMatches() {
+		return doubleGroupMatches;
+	}
+
+	public void setDoubleGroupMatches(int doubleGroupMatches) {
+		this.doubleGroupMatches = doubleGroupMatches;
+	}
+
+	public int getDoubleCupMatches() {
+		return doubleCupMatches;
+	}
+
+	public void setDoubleCupMatches(int doubleCupMatches) {
+		this.doubleCupMatches = doubleCupMatches;
+	}
+
+	public int getDoubleFinalMatches() {
+		return doubleFinalMatches;
+	}
+
+	public void setDoubleFinalMatches(int doubleFinalMatches) {
+		this.doubleFinalMatches = doubleFinalMatches;
+	}
+
 	@Override
 	public String toString() {
-		return "League [fullname=" + fullname + ", shortname=" + shortname + ", country=" + country + ", level=" + level
-				+ ", logo=" + logo + ", countryName=" + countryName + "]";
+		return "League [id=" + id + ", fullname=" + fullname + ", shortname=" + shortname + ", country=" + country
+				+ ", level=" + level + ", logo=" + logo + ", countryName=" + countryName + ", onlyForMe=" + onlyForMe
+				+ ", numberOfGroups=" + numberOfGroups + ", numberOfTeams=" + numberOfTeams + ", system=" + system
+				+ ", doubleGroupMatches=" + doubleGroupMatches + ", doubleCupMatches=" + doubleCupMatches
+				+ ", doubleFinalMatches=" + doubleFinalMatches + "]";
 	}
 
 }

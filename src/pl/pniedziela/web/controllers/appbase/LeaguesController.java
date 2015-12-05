@@ -9,8 +9,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
@@ -43,33 +45,24 @@ public class LeaguesController {
 		model.addAttribute("leagues", leagues);
 		model.addAttribute("countriesNames",
 				tools.getCountriesNames().toString().replaceAll("'", "").replaceAll("\"", "'"));
+		League league = new League();
+		model.addAttribute("league", league);
+		model.addAttribute("countryList", tools.getCountries());
 
 		return "leagues";
 
 	}
 
-	@RequestMapping(value = "leagues/add", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public @ResponseBody String getLeagues(HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/leagues/add", method = RequestMethod.POST)
+	public String getLeagues(League league, BindingResult result, Model model, HttpServletRequest request) {
 
 		String username = request.getRemoteUser();
 		String ipaddress = request.getRemoteAddr();
 
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("fullname", request.getParameter("league.fullname"));
-		params.addValue("shortname", request.getParameter("league.shortname"));
-		params.addValue("level", request.getParameter("league.level"));
-		params.addValue("logo", request.getParameter("league.logo"));
-		if (Integer.parseInt(request.getParameter("league.onlyForMe")) == 1) {
-			params.addValue("onlyForMe", username);
-		} else {
-			params.addValue("onlyForMe", null);
-		}
-
-		params.addValue("countryName", request.getParameter("league.countryName[0][text]"));
-
-		leagueService.addLeague(params);
-
+		System.out.println(league);
+		leagueService.addLeague(league, username);
 		userService.log(username, "leagues.leagueAdded", ipaddress);
-		return context.getMessage("leagues.leagueAdded", null, res.resolveLocale(request));
+		model.addAttribute("alert", "leagues.leagueAdded");
+		return getLeagues(model, request);
 	}
 }
