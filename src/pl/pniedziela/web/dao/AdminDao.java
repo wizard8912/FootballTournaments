@@ -182,7 +182,6 @@ public class AdminDao {
 	}
 
 	public void addBanForUser(MapSqlParameterSource params) {
-		System.out.println(params.getValue("username"));
 		jdbc.update("CALL `football_tournaments`.`sp_addUsernameBan`(:username, :todate, :admin, :reason);", params);
 
 	}

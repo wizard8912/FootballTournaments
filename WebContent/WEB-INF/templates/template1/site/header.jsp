@@ -35,6 +35,29 @@
 						src="${ pageContext.request.contextPath }/static/flag_Poland.png"
 						class="img-rounded" style="width: 30px; height: 20px;" /></a></li>
 
+				<sec:authorize access="isAuthenticated()">
+					<li>
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								id="menu1" data-toggle="dropdown">
+								<fmt:message key="title.appbase" />
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="/teams"/>'><fmt:message
+											key="title.teams" /></a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="/leagues"/>'><fmt:message
+											key="title.leagues" /></a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href='<c:url value="/players"/>'><fmt:message
+											key="title.players" /></a></li>
+								<li role="presentation" class="divider"></li>
+							</ul>
+						</div>
+					</li>
+				</sec:authorize>
 				<sec:authorize access="!isAuthenticated()">
 					<li><div class="dropdown">
 							<a class="btn btn-default dropdown-toggle"
