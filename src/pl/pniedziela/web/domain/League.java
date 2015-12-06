@@ -9,13 +9,13 @@ public class League {
 	private int level;
 	private String logo;
 	private String countryName;
-	private int onlyForMe;
+	private boolean onlyForMe;
 	private int numberOfGroups;
 	private int numberOfTeams;
 	private String system;
-	private int doubleGroupMatches;
-	private int doubleCupMatches;
-	private int doubleFinalMatches;
+	private boolean doubleGroupMatches;
+	private boolean doubleCupMatches;
+	private boolean doubleFinalMatches;
 
 	public League() {
 
@@ -77,11 +77,11 @@ public class League {
 		this.id = id;
 	}
 
-	public int getOnlyForMe() {
+	public boolean getOnlyForMe() {
 		return onlyForMe;
 	}
 
-	public void setOnlyForMe(int onlyForMe) {
+	public void setOnlyForMe(boolean onlyForMe) {
 		this.onlyForMe = onlyForMe;
 	}
 
@@ -109,27 +109,27 @@ public class League {
 		this.system = system;
 	}
 
-	public int getDoubleGroupMatches() {
+	public boolean getDoubleGroupMatches() {
 		return doubleGroupMatches;
 	}
 
-	public void setDoubleGroupMatches(int doubleGroupMatches) {
+	public void setDoubleGroupMatches(boolean doubleGroupMatches) {
 		this.doubleGroupMatches = doubleGroupMatches;
 	}
 
-	public int getDoubleCupMatches() {
+	public boolean getDoubleCupMatches() {
 		return doubleCupMatches;
 	}
 
-	public void setDoubleCupMatches(int doubleCupMatches) {
+	public void setDoubleCupMatches(boolean doubleCupMatches) {
 		this.doubleCupMatches = doubleCupMatches;
 	}
 
-	public int getDoubleFinalMatches() {
+	public boolean getDoubleFinalMatches() {
 		return doubleFinalMatches;
 	}
 
-	public void setDoubleFinalMatches(int doubleFinalMatches) {
+	public void setDoubleFinalMatches(boolean doubleFinalMatches) {
 		this.doubleFinalMatches = doubleFinalMatches;
 	}
 

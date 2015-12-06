@@ -64,17 +64,16 @@ public class ToolsDao {
 	public JSONArray getCountriesNames() {
 
 		final JSONArray array = new JSONArray();
-		jdbc.query("SELECT name FROM football_tournaments.countries order by name;",
-				new ResultSetExtractor<List<String>>() {
+		jdbc.query("SELECT name FROM football_tournaments.countries;", new ResultSetExtractor<List<String>>() {
 
-					@Override
-					public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
-						while (rs.next()) {
-							array.put(rs.getString("name"));
-						}
-						return null;
-					}
+			@Override
+			public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				while (rs.next()) {
+					array.put(rs.getString("name"));
 				}
+				return null;
+			}
+		}
 
 		);
 

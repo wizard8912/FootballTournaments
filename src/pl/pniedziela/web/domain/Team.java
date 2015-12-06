@@ -2,6 +2,7 @@ package pl.pniedziela.web.domain;
 
 public class Team {
 
+	private int id;
 	private String fullname;
 	private String nickname;
 	private String shortname;
@@ -11,20 +12,22 @@ public class Team {
 	private String stadium;
 	private int founded;
 	private int country;
+	private String countryName;
+	private String city;
 	private int league;
+	private String leagueName;
+	private boolean onlyForMe;
 
-	public Team(String fullname, String nickname, String shortname, String manager, String address, String logo,
-			String stadium, int founded, int country, int league) {
-		this.fullname = fullname;
-		this.nickname = nickname;
-		this.shortname = shortname;
-		this.manager = manager;
-		this.address = address;
-		this.logo = logo;
-		this.stadium = stadium;
-		this.founded = founded;
-		this.country = country;
-		this.league = league;
+	public Team() {
+
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFullname() {
@@ -105,6 +108,46 @@ public class Team {
 
 	public void setLeague(int league) {
 		this.league = league;
+	}
+
+	public String getLeagueName() {
+		return leagueName;
+	}
+
+	public void setLeagueName(String leagueName) {
+		this.leagueName = leagueName;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public boolean getOnlyForMe() {
+		return onlyForMe;
+	}
+
+	public void setOnlyForMe(boolean onlyForMe) {
+		this.onlyForMe = onlyForMe;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
+
+	@Override
+	public String toString() {
+		return "Team [id=" + id + ", fullname=" + fullname + ", nickname=" + nickname + ", shortname=" + shortname
+				+ ", manager=" + manager + ", address=" + address + ", logo=" + logo + ", stadium=" + stadium
+				+ ", founded=" + founded + ", country=" + country + ", countryName=" + countryName + ", city=" + city
+				+ ", league=" + league + ", leagueName=" + leagueName + ", onlyForMe=" + onlyForMe + "]";
 	}
 
 }

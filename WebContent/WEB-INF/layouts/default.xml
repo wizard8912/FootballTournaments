@@ -99,4 +99,10 @@
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/base/leagues.jsp" />
 	</definition>
+	
+		<definition name="teams" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/base/teams.jsp" />
+	</definition>
 </tiles-definitions>

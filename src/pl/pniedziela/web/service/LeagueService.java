@@ -1,6 +1,7 @@
 package pl.pniedziela.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -22,5 +23,15 @@ public class LeagueService {
 	public void addLeague(League league, String username) {
 		leagueDao.addLeague(league, username);
 
+	}
+
+	public Map<Integer, String> getLeaguesForCombo(String username) {
+
+		return leagueDao.getLeaguesForCombo(username);
+
+	}
+
+	public League findLeagueById(int leagueId, String username) {
+		return leagueDao.findLeagueById(leagueId, username);
 	}
 }

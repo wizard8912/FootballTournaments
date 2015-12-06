@@ -128,7 +128,7 @@ a:hover, a:active {
 .grid {
 	position: relative;
 	width: 188px;
-	min-height: 360px;
+	min-height: 450px;
 	padding: 15px;
 	background: #fff;
 	margin: 8px;
@@ -212,6 +212,49 @@ a:hover, a:active {
 .form-group {
 	background-color: #e3e3e3;
 }
+
+.leagueInfo {
+	background-color: red;
+	height: 100%;
+}
+
+.leagueLeft {
+	float: left;
+	width: 50%;
+	height: 300px;
+	text-align: right;
+	padding-right: 30px;
+	text-align: right;
+}
+
+.leagueRight {
+	float: left;
+	width: 50%;
+	height: 200px;
+	vertical-align: middle;
+	padding-left: 30px;
+}
+
+.leagueLeft .leagueLeftimg {
+	height: 100%;
+	display: block;
+}
+
+.left_block {
+	display: block;
+	float: left;
+}
+
+.right_block {
+	display: block;
+	float: right;
+}
+
+.LeagueInfo {
+	width: 100%;
+	height: 70px;
+	background-color: #d4d4d4;
+}
 </style>
 </head>
 
@@ -229,42 +272,44 @@ a:hover, a:active {
 <div class="container">
 	<div class="row">
 		<div class="toolbar">
-			<button type="button" class="btn btn-blue" onClick="addLeague();">
-				<fmt:message key="league.addLeague" />
+			<button type="button" class="btn btn-blue" onClick='addTeam();'>
+				<fmt:message key="team.addTeam" />
+			</button>
+			<button type="button" class="btn btn-blue" onClick='window.location.href = "${pageContext.request.contextPath}/leagues";'>
+				<fmt:message key="team.goToLeagues" />
 			</button>
 
 			<div class="pull-right">
 				<input id="searchengine" type="text" class="form-control"
-					placeholder='<fmt:message key="league.searchPlaceHolder" />' />
+					placeholder='<fmt:message key="team.searchPlaceHolder" />' />
 
 			</div>
 			<div class="pull-right">
 
-				<label for="myLeagues"><fmt:message key="league.onyForMe" /></label>
-				<input id="myLeagues" type="checkbox" value="">&nbsp;&nbsp;&nbsp;&nbsp;
+				<label for="myTeams"><fmt:message key="teams.onlyForMe" /></label>
+				<input id="myTeams" type="checkbox" value="">&nbsp;&nbsp;&nbsp;&nbsp;
 			</div>
 
 		</div>
 	</div>
 </div>
 <sf:form id="details" method="post"
-	action="${pageContext.request.contextPath}/leagues/add"
-	commandName="league">
-	<div class="container" id="addLeague">
+	action="${pageContext.request.contextPath}/teams/add"
+	commandName="team">
+	<div class="container" id="addTeam">
 		<div class="row">
 			<div class="col-md-12">
 				<div class='row'>
 					<div class='col-sm-4'>
 						<div class='form-group'>
-							<label for="fullname"><fmt:message key="league.fullname" /></label>
+							<label for="fullname"><fmt:message key="team.fullname" /></label>
 							<sf:input data-validation="length" data-validation-length="3-100"
 								class="form-control" path="fullname" name="fullname" type="text" />
 						</div>
 					</div>
 					<div class='col-sm-4'>
 						<div class='form-group'>
-							<label for="shortname"><fmt:message
-									key="league.shortname" /></label>
+							<label for="shortname"><fmt:message key="team.shortname" /></label>
 							<sf:input data-validation="length" data-validation-length="3-30"
 								class="form-control" path="shortname" name="shortname"
 								type="text" />
@@ -272,137 +317,193 @@ a:hover, a:active {
 					</div>
 					<div class='col-sm-4'>
 						<div class='form-group'>
-							<label for="country"><fmt:message key="league.country" /></label>
-							<sf:select class="form-control" path="country" name="country"
-								type="text">
-								<sf:options items="${ countryList }" />
-							</sf:select>
+							<label for="nickname"><fmt:message key="team.nickname" /></label>
+							<sf:input data-validation="length" data-validation-length="3-30"
+								class="form-control" path="nickname" name="nickname" type="text" />
 						</div>
 					</div>
 
+
 					<div class='col-sm-4'>
 						<div class='form-group'>
-							<label for="logo"><fmt:message key="league.logo" /></label>
+							<label for="logo"><fmt:message key="team.logo" /></label>
 							<sf:input data-validation="url" data-validation-length="3-100"
 								class="form-control" path="logo" name="logo" type="text" />
 						</div>
 					</div>
 					<div class='col-sm-4'>
 						<div class='form-group'>
-							<label for="system"><fmt:message key="league.system" /></label>
-							<sf:select class="form-control" path="system" name="system"
-								type="text"
-								onChange="if($(this).val() == 1) {$('#grNum').hide();$('#dbCup').hide();$('#dbFinal').hide();} else {$('#grNum').show();$('#dbCup').show();$('#dbFinal').show();};">
-								<sf:option value="1">
-									<fmt:message key="league.league" />
-								</sf:option>
-								<sf:option value="2">
-									<fmt:message key="league.cup" />
-								</sf:option>
-								<sf:option value="3">
-									<fmt:message key="league.leaguecup" />
-								</sf:option>
+							<label for="manager"><fmt:message key="team.manager" /></label>
+							<sf:input data-validation="length" data-validation-length="3-30"
+								class="form-control" path="manager" name="manager" type="text" />
+						</div>
+					</div>
+
+
+					<div class='col-sm-4'>
+						<div class='form-group'>
+							<label for="stadium"><fmt:message key="team.stadium" /></label>
+							<sf:input data-validation="length" data-validation-length="3-30"
+								class="form-control" path="stadium" name="stadium" type="text" />
+						</div>
+					</div>
+					<div class='col-sm-4'>
+						<div class='form-group'>
+							<label for="country"><fmt:message key="team.country" /></label>
+							<sf:select class="form-control" path="country" name="country"
+								type="text">
+								<sf:options items="${ countryList }" />
 							</sf:select>
 						</div>
 					</div>
 					<div class='col-sm-4'>
 						<div class='form-group'>
-							<label for="level"><fmt:message key="league.level" /></label>
+							<label for="city"><fmt:message key="team.city" /></label>
+							<sf:input data-validation="length" data-validation-length="3-30"
+								class="form-control" path="city" name="city" type="text" />
+						</div>
+					</div>
+					<div class='col-sm-4'>
+						<div class='form-group'>
+							<label for="address"><fmt:message key="team.address" /></label>
+							<sf:input data-validation="length" data-validation-length="3-100"
+								class="form-control" path="address" name="address" type="text" />
+						</div>
+					</div>
+					<div class='col-sm-4'>
+						<div class='form-group'>
+							<label for="founded"><fmt:message key="team.founded" /></label>
 							<sf:input data-validation="number" class="form-control"
-								path="level" name="level" type="text" />
-						</div>
-					</div>
-
-
-					<div class='col-sm-4'>
-						<div class='form-group'>
-							<label for="numberOfTeams"><fmt:message
-									key="league.teamsNumber" /></label>
-							<sf:input data-validation="number" class="form-control"
-								path="numberOfTeams" name="numberOfTeams" type="text" />
+								path="founded" name="founded" type="text" />
 						</div>
 					</div>
 					<div class='col-sm-4'>
 						<div class='form-group'>
-							<label for="doubleGroupMatches"><fmt:message
-									key="league.doubleGroupMatches" /></label>
-							<sf:checkbox value="0" class="form-control"
-								name="doubleGroupMatches" path="doubleGroupMatches" />
+							<label for="league"><fmt:message key="team.league" /></label>
+							<sf:select class="form-control" path="league" name="league"
+								type="text">
+								<sf:options items="${ leagueList }" />
+							</sf:select>
 						</div>
 					</div>
-
 					<div class='col-sm-4'>
 						<div class='form-group'>
-							<label for="user_lastname"><fmt:message
-									key="league.onlyForMe" /></label>
-							<sf:checkbox value="1" class="form-control" name="onlyForMe"
+							<label for="onlyForMe"><fmt:message key="team.onlyForMe" /></label>
+							<sf:checkbox value="0" class="form-control" name="onlyForMe"
 								path="onlyForMe" />
 						</div>
 					</div>
-					<div class='col-sm-4'>
-						<div class='form-group' id="dbCup">
-							<label for="doubleCupMatches"><fmt:message
-									key="league.doubleCupMatches" /></label>
-							<sf:checkbox value="0" class="form-control"
-								name="doubleCupMatches" path="doubleCupMatches" />
-						</div>
-					</div>
-					<div class='col-sm-4'>
-						<div class='form-group' id="grNum">
-							<label for=numberOfGroups><fmt:message
-									key="league.groupsNumber" /></label>
-							<sf:input data-validation="number" class="form-control"
-								path="numberOfGroups" name="numberOfGroups" type="text" />
-						</div>
-					</div>
-					<div class='col-sm-4'>
-						<div class='form-group' id="dbFinal">
-							<label for="doubleFinalMatches"><fmt:message
-									key="league.doubleFinalMatches" /></label>
-							<sf:checkbox value="1" class="form-control"
-								name="doubleFinalMatches" path="doubleFinalMatches" />
-						</div>
-					</div>
-
 				</div>
 
 			</div>
 			<div class="pull-right">
 				<input class="btn btn-success"
-					value="<fmt:message key="league.confirm" />" type="submit" />
+					value="<fmt:message key="team.confirm" />" type="submit" />
 			</div>
 		</div>
 	</div>
 </sf:form>
 
-<div id="container" class="container">
-	<c:forEach items="${leagues}" var="league">
-		<div class="grid" id="LeagueGrid${league.id }">
-			<div class="bottom">
-				<div class="imgholder">
-					<a href="${pageContext.request.contextPath}/teams/${league.id}"><img
-						src="${ league.logo }" /></a>
+
+<c:if test="${league != null}">
+	<div class="container">
+		<div class="col-md-12">
+			<div class="leagueLeft">
+				<img class="leagueLeftimg pull-right" src="${ league.logo }" />
+			</div>
+			<div class="leagueRight">
+				<div class="row">
+					<label><fmt:message key="league.fullname" />:
+						${league.fullname}</label>
+				</div>
+				<div class="row">
+					<label><fmt:message key="league.shortname" />:
+						${league.shortname}</label>
+				</div>
+				<div class="row">
+					<label><fmt:message key="league.country" />:
+						${league.countryName}</label>
+				</div>
+				<div class="row">
+					<label><fmt:message key="league.level" />: ${league.level}</label>
+				</div>
+				<div class="row">
+					<label> System: <c:if test="${ league.system == 1}">
+							<fmt:message key="league.league" />
+						</c:if> <c:if test="${ league.system == 2}">
+							<fmt:message key="league.cup" />
+						</c:if> <c:if test="${ league.system == 3}">
+							<fmt:message key="league.leaguecup" />
+						</c:if></label>
 				</div>
 
-				<strong>${ league.fullname }</strong>
-				<p>${ league.countryName }</p>
-
-				<fmt:message key="league.level" />
-				: ${ league.level } <br /> System:
-				<c:if test="${ league.system == 1}">
-					<fmt:message key="league.league" />
-				</c:if>
-				<c:if test="${ league.system == 2}">
-					<fmt:message key="league.cup" />
-				</c:if>
+				<div class="row">
+					<label><fmt:message key="league.teamsNumber" />:
+						${league.numberOfTeams}</label>
+				</div>
 				<c:if test="${ league.system == 3}">
-					<fmt:message key="league.leaguecup" />
+					<div class="row">
+						<label><fmt:message key="league.groupsNumber" />:
+							${league.numberOfGroups}</label>
+					</div>
 				</c:if>
-				<br />
-				<fmt:message key="league.teamsNumber" />
-				: ${ league.numberOfTeams	 }
+				<c:if test="${ league.system != 2}">
+					<div class="row">
+						<label><fmt:message key="league.doubleGroupMatches" />: <c:if
+								test="${ !league.doubleGroupMatches}">
+								<fmt:message key="no" />
+							</c:if> <c:if test="${ league.doubleGroupMatches}">
+								<fmt:message key="yes" />
+							</c:if></label>
+					</div>
+				</c:if>
+				<c:if test="${ league.system == 2 || league.system == 3}">
+					<div class="row">
+						<label><fmt:message key="league.doubleCupMatches" />: <c:if
+								test="${ !league.doubleCupMatches}">
+								<fmt:message key="no" />
+							</c:if> <c:if test="${ league.doubleCupMatches}">
+								<fmt:message key="yes" />
+							</c:if></label>
+					</div>
+					<div class="row">
+						<label><fmt:message key="league.doubleFinalMatches" />: <c:if
+								test="${ !league.doubleFinalMatches}">
+								<fmt:message key="no" />
+							</c:if> <c:if test="${ league.doubleFinalMatches }">
+								<fmt:message key="yes" />
+							</c:if></label>
+					</div>
+				</c:if>
+				<div class="row">
+					<label><fmt:message key="league.onlyForMe" />: <c:if
+							test="${! league.onlyForMe}">
+							<fmt:message key="no" />
+						</c:if> <c:if test="${ league.onlyForMe}">
+							<fmt:message key="yes" />
+						</c:if></label>
+				</div>
+			</div>
+		</div>
+	</div>
+</c:if>
+<div id="container" class="container">
+	<c:forEach items="${teams}" var="team">
+		<div class="grid" id="LeagueGrid${team.id }">
+			<div class="bottom">
+				<div class="imgholder">
+					<img src="${ team.logo }" />
+				</div>
+
+				<strong>${ team.fullname }</strong>
+				<p>${ team.manager }</p>
+				<p>${ team.stadium }</p>
+				<p>${ team.countryName }</p>
+				<p>${ team.leagueName }</p>
+
+
 				<div class="hidden">
-					<p>OFM${ league.onlyForMe	 }</p>
+					<p>OFM${ team.onlyForMe	 }</p>
 				</div>
 			</div>
 		</div>
@@ -411,16 +512,25 @@ a:hover, a:active {
 <script>
 	$(document).ready(function() {
 
-		$("#dbCup").hide();
-		$("#dbFinal").hide();
-		$("#grNum").hide();
-		$("#addLeague").hide();
+		$("#addTeam").hide();
 	});
 
+	var addTeamVis = 0;
+
+	function addTeam() {
+
+		if (addTeamVis == 0) {
+			$("#addTeam").show("slow");
+			addTeamVis = 1;
+		} else {
+			$("#addTeam").hide("slow");
+			addTeamVis = 0;
+		}
+	}
 	var checked = 0;
 	var searchWord = "";
 
-	$("#myLeagues").change(function() {
+	$("#myTeams").change(function() {
 		if ($(this).is(':checked')) {
 			checked = 1;
 		} else {
@@ -452,18 +562,6 @@ a:hover, a:active {
 				$(this).hide("slow");
 			}
 		});
-	}
-
-	var addLeagueVis = 0;
-
-	function addLeague() {
-		if (addLeagueVis == 0) {
-			$("#addLeague").show("slow");
-			addLeagueVis = 1;
-		} else {
-			$("#addLeague").hide("slow");
-			addLeagueVis = 0;
-		}
 	}
 
 	var messages = {
