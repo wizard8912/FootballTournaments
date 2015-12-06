@@ -34,4 +34,8 @@ public class LeagueService {
 	public League findLeagueById(int leagueId, String username) {
 		return leagueDao.findLeagueById(leagueId, username);
 	}
+
+	public List<String> getLeaguesForAutoComplete(String username) {
+		return leagueDao.getLeaguesForAutoComplete(username);
+	}
 }

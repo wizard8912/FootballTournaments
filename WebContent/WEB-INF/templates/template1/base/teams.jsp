@@ -2,8 +2,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <head>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/blocksit.js"></script>
 <script
@@ -257,7 +259,6 @@ a:hover, a:active {
 }
 </style>
 </head>
-
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -275,7 +276,8 @@ a:hover, a:active {
 			<button type="button" class="btn btn-blue" onClick='addTeam();'>
 				<fmt:message key="team.addTeam" />
 			</button>
-			<button type="button" class="btn btn-blue" onClick='window.location.href = "${pageContext.request.contextPath}/leagues";'>
+			<button type="button" class="btn btn-blue"
+				onClick='window.location.href = "${pageContext.request.contextPath}/leagues";'>
 				<fmt:message key="team.goToLeagues" />
 			</button>
 
@@ -380,10 +382,9 @@ a:hover, a:active {
 					<div class='col-sm-4'>
 						<div class='form-group'>
 							<label for="league"><fmt:message key="team.league" /></label>
-							<sf:select class="form-control" path="league" name="league"
-								type="text">
-								<sf:options items="${ leagueList }" />
-							</sf:select>
+							<sf:input id="leagueNameForTeam" data-validation="length"
+								data-validation-length="3-100" class="form-control"
+								path="leagueName" name="leagueName" type="text" />
 						</div>
 					</div>
 					<div class='col-sm-4'>
@@ -513,6 +514,15 @@ a:hover, a:active {
 	$(document).ready(function() {
 
 		$("#addTeam").hide();
+
+		$("#leagueNameForTeam").autocomplete({
+			source : <c:out value="${leagueList }" escapeXml="false" ></c:out>,
+			change : function(event, ui) {
+				console.log(ui.item);
+				$(this).val((ui.item ? ui.item.value : ""));
+			}
+		});
+
 	});
 
 	var addTeamVis = 0;

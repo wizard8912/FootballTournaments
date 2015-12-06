@@ -146,4 +146,21 @@ public class LeagueDao {
 		else
 			return leagueList.get(0);
 	}
+
+	public List<String> getLeaguesForAutoComplete(String username) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", username);
+
+		List<String> leagueList = jdbc.query("CALL `football_tournaments`.`sp_findLeaguesToAutocomplete`(:username);",
+				params, new RowMapper<String>() {
+
+					@Override
+					public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+						return rs.getString("league");
+					}
+				});
+
+		return leagueList;
+	}
 }

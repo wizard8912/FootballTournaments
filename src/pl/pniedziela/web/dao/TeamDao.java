@@ -71,13 +71,13 @@ public class TeamDao {
 		params.addValue("city", team.getCity());
 		params.addValue("address", team.getAddress());
 		params.addValue("founded", team.getFounded());
-		params.addValue("league", team.getLeague());
+		params.addValue("leagueName", team.getLeagueName());
 		params.addValue("privateForUser", team.getOnlyForMe() ? username : null);
 		System.out.println(team.getOnlyForMe());
 		System.out.println(params.getValue("privateForUser"));
 
 		jdbc.update(
-				"CALL `football_tournaments`.`sp_addTeam`(:fullname,:shortname,:nickname,:logo,:manager,:stadium,:country,:city,:address,:founded,:league,:privateForUser);",
+				"CALL `football_tournaments`.`sp_addTeam`(:fullname,:shortname,:nickname,:logo,:manager,:stadium,:country,:city,:address,:founded,:leagueName,:privateForUser);",
 				params);
 
 	}
