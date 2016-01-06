@@ -1,27 +1,19 @@
 package pl.pniedziela.web.controllers.admin;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import pl.pniedziela.web.dao.ToolsDao;
-import pl.pniedziela.web.domain.User;
 import pl.pniedziela.web.service.AdminService;
 import pl.pniedziela.web.service.UserService;
 
@@ -139,12 +131,11 @@ public class AdminUsersController {
 		params.addValue("username", request.getParameter("username"));
 		params.addValue("role", request.getParameter("role[text]"));
 		params.addValue("admin", userAdmin);
-		
+
 		adminService.changeUserRole(params);
 		userService.log(userAdmin, "admin.setUserRole", ipaddress);
 		userService.log((String) params.getValue("username"), "user.changerole", ipaddress);
 
-		
 		return context.getMessage("admin.user.roleChanged", null, res.resolveLocale(request));
 	}
 }

@@ -38,4 +38,8 @@ public class LeagueService {
 	public List<String> getLeaguesForAutoComplete(String username) {
 		return leagueDao.getLeaguesForAutoComplete(username);
 	}
+
+	public List<League> getCompletedLeagues(String username) {
+		return leagueDao.getCompletedLeagues(username);
+	}
 }

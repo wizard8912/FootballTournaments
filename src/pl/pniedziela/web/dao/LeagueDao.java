@@ -163,4 +163,39 @@ public class LeagueDao {
 
 		return leagueList;
 	}
+
+	public List<League> getCompletedLeagues(String username) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", username);
+		List<League> leagues = jdbc.query("CALL `football_tournaments`.`sp_getCompletedLeaguesForUser`(:username);",
+				params, new RowMapper<League>() {
+
+					@Override
+					public League mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+						League league = new League();
+						league.setId(rs.getInt("id"));
+						league.setFullname(rs.getString("fullname"));
+						league.setShortname(rs.getString("shortname"));
+						league.setLevel(rs.getInt("level"));
+						league.setCountry(rs.getInt("country"));
+						league.setLogo(rs.getString("logo"));
+						league.setCountryName(rs.getString("countryName"));
+						if (rs.getString("privateForUser") != null
+								&& Integer.parseInt(rs.getString("privateForUser")) > 0) {
+							league.setOnlyForMe(true);
+						}
+						league.setNumberOfGroups(rs.getInt("groupsNumber"));
+						league.setNumberOfTeams(rs.getInt("teamsNumber"));
+						league.setSystem(rs.getString("system"));
+						league.setDoubleGroupMatches(rs.getInt("doubleGroupMatches") > 0 ? true : false);
+						league.setDoubleCupMatches(rs.getInt("doubleCupMatches") > 0 ? true : false);
+						league.setDoubleFinalMatches(rs.getInt("doubleFinalMatches") > 0 ? true : false);
+
+						return league;
+					}
+				});
+
+		return leagues;
+	}
 }

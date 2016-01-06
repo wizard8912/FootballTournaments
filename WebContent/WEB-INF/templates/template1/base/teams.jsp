@@ -291,7 +291,6 @@ a:hover, a:active {
 				<label for="myTeams"><fmt:message key="teams.onlyForMe" /></label>
 				<input id="myTeams" type="checkbox" value="">&nbsp;&nbsp;&nbsp;&nbsp;
 			</div>
-
 		</div>
 	</div>
 </div>
@@ -385,13 +384,6 @@ a:hover, a:active {
 							<sf:input id="leagueNameForTeam" data-validation="length"
 								data-validation-length="3-100" class="form-control"
 								path="leagueName" name="leagueName" type="text" />
-						</div>
-					</div>
-					<div class='col-sm-4'>
-						<div class='form-group'>
-							<label for="onlyForMe"><fmt:message key="team.onlyForMe" /></label>
-							<sf:checkbox value="0" class="form-control" name="onlyForMe"
-								path="onlyForMe" />
 						</div>
 					</div>
 				</div>

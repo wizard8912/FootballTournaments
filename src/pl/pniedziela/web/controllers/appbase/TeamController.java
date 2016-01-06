@@ -63,6 +63,7 @@ public class TeamController {
 		String ipaddress = request.getRemoteAddr();
 
 		teamService.addTeam(team, username);
+		System.out.println(team);
 		userService.log(username, "team.addTeam", ipaddress);
 		model.addAttribute("alert", "team.addteamCorrectly");
 		return getTeams(model, request);

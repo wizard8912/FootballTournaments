@@ -99,10 +99,23 @@
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/base/leagues.jsp" />
 	</definition>
-	
-		<definition name="teams" extends="template.base">
+
+	<definition name="teams" extends="template.base">
 		<put-attribute name="title" value="Bans" />
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/base/teams.jsp" />
+	</definition>
+
+	<definition name="newTournament" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/tournaments/newTournament.jsp" />
+	</definition>
+
+
+	<definition name="createTournamentFromTemplate" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/tournaments/createTournamentFromTemplate.jsp" />
 	</definition>
 </tiles-definitions>

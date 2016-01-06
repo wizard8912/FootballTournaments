@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,15 +22,12 @@ public class LeaguesController {
 
 	@Autowired
 	LeagueService leagueService;
-
 	@Autowired
 	ToolsDao tools;
 	@Autowired
 	UserService userService;
 	@Autowired
 	SessionLocaleResolver res;
-	@Autowired
-	ApplicationContext context;
 
 	@RequestMapping(value = "/leagues", method = RequestMethod.GET)
 	public String getLeagues(Model model, HttpServletRequest request) {
