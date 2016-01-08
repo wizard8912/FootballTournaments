@@ -223,7 +223,7 @@ a:hover, a:active {
 .leagueLeft {
 	float: left;
 	width: 50%;
-	height: 300px;
+	height: 350px;
 	text-align: right;
 	padding-right: 30px;
 	text-align: right;
@@ -232,7 +232,7 @@ a:hover, a:active {
 .leagueRight {
 	float: left;
 	width: 50%;
-	height: 200px;
+	height: 220px;
 	vertical-align: middle;
 	padding-left: 30px;
 }
@@ -254,28 +254,24 @@ a:hover, a:active {
 
 .LeagueInfo {
 	width: 100%;
-	height: 70px;
+	height: 90px;
 	background-color: #d4d4d4;
 }
 </style>
 </head>
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<c:if test="${alert != null}">
-				<div class="alert alert-success text-center" role="alert">
-					<fmt:message key="${alert}" />
-				</div>
-			</c:if>
-		</div>
-	</div>
-</div>
+<form id="tournamentCreate" method="post"
+	action="${pageContext.request.contextPath}/tournaments/create">
+	<input type="hidden" id="leagueId" name="leagueId" value="">
+</form>
+
 <div class="container">
 	<div class="row">
 		<div class="toolbar">
-			<button type="button" class="btn btn-blue" onClick='addTeam();'>
-				<fmt:message key="team.addTeam" />
-			</button>
+			<c:if test="${teams.size() != league.numberOfTeams}">
+				<button type="button" class="btn btn-blue" onClick='addTeam();'>
+					<fmt:message key="team.addTeam" />
+				</button>
+			</c:if>
 			<button type="button" class="btn btn-blue"
 				onClick='window.location.href = "${pageContext.request.contextPath}/leagues";'>
 				<fmt:message key="team.goToLeagues" />
@@ -476,6 +472,29 @@ a:hover, a:active {
 							<fmt:message key="yes" />
 						</c:if></label>
 				</div>
+				<div class="row">
+					<div style="float: left;">
+						<c:if test="${teams.size() == league.numberOfTeams}">
+							<label style="color: green; font-weight: bold;"><fmt:message
+									key="league.completOfTeams" /></label>
+						</c:if>
+						<c:if test="${teams.size() != league.numberOfTeams}">
+							<label style="color: red; font-weight: bold;"><fmt:message
+									key="league.notCompletOfTeams" /></label>
+						</c:if>
+					</div>
+					<div class="btn btn-info" style="float: left; margin-left: 50px;"
+						onclick="document.location.href='${pageContext.request.contextPath}/tournaments/fromTemplate'">
+						<fmt:message key="league.showCompletedLeagues" />
+					</div>
+					<c:if test="${teams.size() == league.numberOfTeams}">
+						<div class="btn btn-success"
+							style="float: left; margin-left: 20px;"
+							onclick="createTournament(${league.id})">
+							<fmt:message key="league.createTournamentFromThis" />
+						</div>
+					</c:if>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -503,6 +522,11 @@ a:hover, a:active {
 	</c:forEach>
 </div>
 <script>
+	function createTournament(leagueId) {
+		$("#leagueId").val(leagueId);
+		$("#tournamentCreate").submit();
+	};
+
 	$(document).ready(function() {
 
 		$("#addTeam").hide();

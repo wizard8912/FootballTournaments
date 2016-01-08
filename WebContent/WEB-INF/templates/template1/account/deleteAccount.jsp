@@ -4,17 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<c:if test="${error != null}">
-				<div class="alert alert-danger text-center" role="alert">
-					<fmt:message key="${error}" />
-				</div>
-			</c:if>
-		</div>
-	</div>
-</div>
 <form id="details" method="post"
 	action="${pageContext.request.contextPath}/myAccount/deleteAccount">
 	<div class="container">

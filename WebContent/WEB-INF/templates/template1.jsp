@@ -35,6 +35,7 @@
 	</div>
 
 	<div class="content">
+		<tiles:insertAttribute name="alerts"></tiles:insertAttribute>
 		<tiles:insertAttribute name="content"></tiles:insertAttribute>
 	</div>
 

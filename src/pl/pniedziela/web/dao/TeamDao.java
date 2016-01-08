@@ -72,11 +72,7 @@ public class TeamDao {
 		params.addValue("address", team.getAddress());
 		params.addValue("founded", team.getFounded());
 		params.addValue("leagueName", team.getLeagueName());
-		System.out.println("LEAGUE");
-		System.out.println(team.getLeagueName());
 		params.addValue("privateForUser", team.getOnlyForMe() ? username : null);
-		System.out.println(team.getOnlyForMe());
-		System.out.println(params.getValue("privateForUser"));
 
 		jdbc.update(
 				"CALL `football_tournaments`.`sp_addTeam`(:fullname,:shortname,:nickname,:logo,:manager,:stadium,:country,:city,:address,:founded,:leagueName);",

@@ -9,31 +9,7 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<c:if test="${!empty errors}">
-				<div id="errors" class="alert alert-danger text-center" role="alert">
-					<c:forEach items="${errors}" var="error">
-						<fmt:message key="${error}" />
-						<br />
-					</c:forEach>
-				</div>
-			</c:if>
-		</div>
-	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<c:if test="${alert != null}">
-				<div class="alert alert-success text-center" role="alert">
-					<fmt:message key="${alert}" />
-				</div>
-			</c:if>
-		</div>
-	</div>
-</div>
+
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/myAccount"
 	commandName="user">

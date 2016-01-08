@@ -84,7 +84,7 @@
 									href='<c:url value="/tournaments/new"/>'><fmt:message
 											key="title.newTournament" /></a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href='<c:url value="/tournaments/my"/>'><fmt:message
+									href='<c:url value="/tournaments/myTournaments"/>'><fmt:message
 											key="title.myTournaments" /></a></li>
 								<li role="presentation" class="divider"></li>
 							</ul>

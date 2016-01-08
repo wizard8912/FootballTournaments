@@ -5,9 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:if test="${alert != null}">
-	<fmt:message key="${alert}" />
-</c:if>
+
 <html>
 <head>
 <link rel="stylesheet" type="text/css"

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 
 import pl.pniedziela.web.dao.LeagueDao;
@@ -41,5 +40,9 @@ public class LeagueService {
 
 	public List<League> getCompletedLeagues(String username) {
 		return leagueDao.getCompletedLeagues(username);
+	}
+
+	public League findLeagueById(int leagueId) {
+		return leagueDao.findLeagueById(leagueId);
 	}
 }

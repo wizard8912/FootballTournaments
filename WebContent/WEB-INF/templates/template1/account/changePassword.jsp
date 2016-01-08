@@ -10,29 +10,6 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
-			<c:if test="${error != null}">
-				<div class="alert alert-danger text-center" role="alert">
-					<fmt:message key="${error}" />
-				</div>
-			</c:if>
-		</div>
-	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<c:if test="${alert != null}">
-				<div class="alert alert-success text-center" role="alert">
-					<fmt:message key="${alert}" />
-				</div>
-			</c:if>
-		</div>
-	</div>
-</div>
-
-<div class="container">
-	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<br />
 			<div class="panel panel-default signup">

@@ -11,34 +11,6 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
 
 
-<c:if test="${alert != null}">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div id="successstop" class="alert alert-success text-center"
-					role="alert">
-					<span class="glyphicon glyphicon-exclamation-sign"
-						aria-hidden="true"></span> <span class="sr-only">Success:</span>
-					<fmt:message key="${alert}" />
-				</div>
-			</div>
-		</div>
-	</div>
-</c:if>
-
-<c:if test="${error != null}">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="alert alert-danger text-center" role="alert">
-					<span class="glyphicon glyphicon-exclamation-sign"
-						aria-hidden="true"></span> <span class="sr-only">Error:</span>
-					<fmt:message key="${error}" />
-				</div>
-			</div>
-		</div>
-	</div>
-</c:if>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">

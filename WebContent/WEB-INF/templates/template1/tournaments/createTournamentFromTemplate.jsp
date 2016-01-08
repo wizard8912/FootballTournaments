@@ -4,6 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<form id="tournamentCreate" method="post"
+	action="${pageContext.request.contextPath}/tournaments/create">
+	<input type="hidden" id="leagueId" name="leagueId" value="">
+</form>
 <div class="container">
 	<div class="row">
 		<div class="col-md-14 col-md-offset-0">
@@ -34,7 +38,8 @@
 									</div>
 								</div>
 								<div style="width: 15%; text-align: left; float: left;">
-									<div style="margin-left: 15px;" class="btn btn-success right">
+									<div style="margin-left: 15px;" class="btn btn-success right"
+										onclick="createTournament(${league.id})">
 										<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
 										<fmt:message key="tournament.chooseTemplate" />
 									</div>
@@ -47,3 +52,10 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function createTournament(leagueId) {
+		$("#leagueId").val(leagueId);
+		$("#tournamentCreate").submit();
+	};
+</script>

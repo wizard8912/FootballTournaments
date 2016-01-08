@@ -9,25 +9,7 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<spring:hasBindErrors htmlEscape="true" name="user">
-				<c:if test="${errors.errorCount gt 0}">
-					<div id="errors" class="alert alert-danger text-center"
-						role="alert">
-						<span class="glyphicon glyphicon-exclamation-sign"
-							aria-hidden="true"></span> <span class="sr-only">Error:</span>
-						<c:forEach items="${errors.allErrors}" var="error">
-							<fmt:message key="${error.defaultMessage}" />
-							<br />
-						</c:forEach>
-					</div>
-				</c:if>
-			</spring:hasBindErrors>
-		</div>
-	</div>
-</div>
+
 
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/register" commandName="user">

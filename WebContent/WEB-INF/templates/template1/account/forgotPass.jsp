@@ -4,20 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:if test="${error != null}">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="alert alert-danger text-center" role="alert">
-					<span class="glyphicon glyphicon-exclamation-sign"
-						aria-hidden="true"></span> <span class="sr-only">Error:</span>
-					<fmt:message key="${error}" />
-				</div>
-			</div>
-		</div>
-	</div>
-</c:if>
-
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/forgotPass">
 	<div class="container">

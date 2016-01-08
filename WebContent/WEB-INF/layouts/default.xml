@@ -10,6 +10,8 @@
 		<put-attribute name="title" value="homepage" />
 		<put-attribute name="header"
 			value="/WEB-INF/templates/template1/site/header.jsp" />
+		<put-attribute name="alerts"
+			value="/WEB-INF/templates/template1/site/alerts.jsp" />
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/site/content.jsp" />
 		<put-attribute name="footer"
@@ -117,5 +119,11 @@
 		<put-attribute name="title" value="Bans" />
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/tournaments/createTournamentFromTemplate.jsp" />
+	</definition>
+
+	<definition name="myTournaments" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/tournaments/myTournaments.jsp" />
 	</definition>
 </tiles-definitions>
