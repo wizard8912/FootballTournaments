@@ -19,8 +19,8 @@ public class LeagueService {
 		return leagueDao.getAllLeagues(username);
 	}
 
-	public void addLeague(League league, String username) {
-		leagueDao.addLeague(league, username);
+	public int addLeague(League league, String username) {
+		return leagueDao.addLeague(league, username);
 
 	}
 

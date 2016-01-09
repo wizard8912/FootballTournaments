@@ -64,7 +64,7 @@ public class LeagueDao {
 		return leagues;
 	}
 
-	public void addLeague(League league, String username) {
+	public int addLeague(League league, String username) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("fullname", league.getFullname());
 		params.addValue("shortname", league.getShortname());
@@ -83,9 +83,19 @@ public class LeagueDao {
 		params.addValue("doubleFinalMatches", league.getDoubleFinalMatches() ? 1 : 0);
 		params.addValue("system", league.getSystem());
 
-		jdbc.update(
+		return jdbc.query(
 				"CALL `football_tournaments`.`sp_addLeague`(:fullname, :shortname, :level, :logo, :onlyForMe, :countryId, :numgroups, :numTeams, :doubleGroupMatches, :doubleCupMatches, :doubleFinalMatches, :system);",
-				params);
+				params, new ResultSetExtractor<Integer>() {
+
+					@Override
+					public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+						Integer leagueId = 0;
+						while (rs.next()) {
+							leagueId = rs.getInt("id");
+						}
+						return leagueId;
+					}
+				});
 	}
 
 	public Map<Integer, String> getLeaguesForCombo(String username) {

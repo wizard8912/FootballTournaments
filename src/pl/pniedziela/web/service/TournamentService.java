@@ -25,4 +25,8 @@ public class TournamentService {
 	public void deleteTournament(int tournamentId) {
 		tournamentDao.deleteTournament(tournamentId);
 	}
+
+	public void createTournamentAndAddTeams(int leagueId, int[] listOfTeams, String username) {
+		tournamentDao.createTournamentAndAddTeams(leagueId, listOfTeams, username);
+	}
 }

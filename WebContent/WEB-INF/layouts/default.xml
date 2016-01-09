@@ -126,4 +126,16 @@
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/tournaments/myTournaments.jsp" />
 	</definition>
+
+	<definition name="createOwnTournament" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/tournaments/createOwnTournament.jsp" />
+	</definition>
+
+	<definition name="chooseTeamsToTournament" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/tournaments/chooseTeamsToTournament.jsp" />
+	</definition>
 </tiles-definitions>

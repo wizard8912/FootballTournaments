@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -67,6 +69,34 @@ public class TournamentDao {
 
 		jdbc.update("CALL `football_tournaments`.`sp_deleteTournament`(:tournamentId);", params);
 
+	}
+
+	public void createTournamentAndAddTeams(int leagueId, int[] listOfTeams, String username) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", username);
+		params.addValue("leagueId", leagueId);
+
+		int tournamentId = jdbc.query(
+				"CALL `football_tournaments`.`sp_createTournamentFromTemplate`(:username,:leagueId);", params,
+				new ResultSetExtractor<Integer>() {
+
+					@Override
+					public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+						Integer tournamentId = 0;
+						while (rs.next()) {
+							tournamentId = rs.getInt("id");
+						}
+						return tournamentId;
+					}
+				});
+
+		for (int teamId : listOfTeams) {
+			params = new MapSqlParameterSource();
+			params.addValue("teamId", teamId);
+			params.addValue("tournamentId", tournamentId);
+
+			jdbc.update("CALL `football_tournaments`.`sp_addTeamToTournament`(:teamId,:tournamentId);", params);
+		}
 	}
 
 }
