@@ -108,6 +108,17 @@ public class TournamentController {
 		return "chooseTeamsToTournament";
 	}
 
+	@RequestMapping(value = "/chooseTeams", method = RequestMethod.POST)
+	public String chooseTeamsAndCreate(@RequestParam int leagueIdF2, Model model, HttpServletRequest request) {
+		String username = request.getRemoteUser();
+		League league = leagueService.findLeagueById(leagueIdF2);
+		List<Team> allTeams = teamService.getAllTeamsForUser(username);
+		model.addAttribute("teams", allTeams);
+		model.addAttribute("numberOfTeams", league.getNumberOfTeams());
+		model.addAttribute("leagueId", leagueIdF2);
+		return "chooseTeamsToTournament";
+	}
+
 	@RequestMapping(value = "addTeamsToTournament", method = RequestMethod.POST)
 	public String addTeamsToTournament(int[] listOfTeams, @RequestParam int leagueId, Model model,
 			HttpServletRequest request) {

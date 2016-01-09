@@ -264,6 +264,11 @@ a:hover, a:active {
 	<input type="hidden" id="leagueId" name="leagueId" value="">
 </form>
 
+<form id="chooseTeams" method="post"
+	action="${pageContext.request.contextPath}/tournaments/chooseTeams">
+	<input type="hidden" id="leagueIdF2" name="leagueIdF2" value="">
+</form>
+
 <div class="container">
 	<div class="row">
 		<div class="toolbar">
@@ -481,15 +486,19 @@ a:hover, a:active {
 						<c:if test="${teams.size() != league.numberOfTeams}">
 							<label style="color: red; font-weight: bold;"><fmt:message
 									key="league.notCompletOfTeams" /></label>
+							<div class="btn btn-success" style="float: left; margin: 3px;"
+								onclick="chooseTeamsAndCreateTournament(${league.id})">
+								<fmt:message key="league.chooseTeamsAndCreateTournament" />
+							</div>
 						</c:if>
 					</div>
-					<div class="btn btn-info" style="float: left; margin-left: 50px;"
+					<div class="btn btn-info" style="float: left; margin-left: 3px;"
 						onclick="document.location.href='${pageContext.request.contextPath}/tournaments/fromTemplate'">
 						<fmt:message key="league.showCompletedLeagues" />
 					</div>
 					<c:if test="${teams.size() == league.numberOfTeams}">
 						<div class="btn btn-success"
-							style="float: left; margin-left: 20px;"
+							style="float: left; margin-left: 3px;"
 							onclick="createTournament(${league.id})">
 							<fmt:message key="league.createTournamentFromThis" />
 						</div>
@@ -526,6 +535,11 @@ a:hover, a:active {
 		$("#leagueId").val(leagueId);
 		$("#tournamentCreate").submit();
 	};
+	
+	function chooseTeamsAndCreateTournament(leagueId) {
+		$("#leagueIdF2").val(leagueId);
+		$("#chooseTeams").submit();
+	}
 
 	$(document).ready(function() {
 
