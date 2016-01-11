@@ -213,4 +213,51 @@ public class TournamentDao {
 		return json;
 	}
 
+	public JSONArray getMatches(String tournamentId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("tournamentId", tournamentId);
+		final JSONArray json = new JSONArray();
+		jdbc.query("CALL `football_tournaments`.`sp_getMatchesForTournament`(:tournamentId);", params,
+				new RowMapper<JSONObject>() {
+
+					@Override
+					public JSONObject mapRow(ResultSet rs, int rowNum) throws SQLException {
+						JSONObject obj = new JSONObject();
+						obj.put("id", rs.getString("id"));
+						obj.put("homeTeam", rs.getString("homeTeam"));
+						obj.put("awayTeam", rs.getString("awayTeam"));
+						obj.put("homeTeamGoals", rs.getString("homeTeamGoals"));
+						obj.put("awayTeamGoals", rs.getString("awayTeamGoals"));
+						obj.put("stadium", rs.getString("stadium"));
+						obj.put("date", rs.getString("date"));
+						obj.put("homeLogo", rs.getString("homeLogo"));
+						obj.put("awayLogo", rs.getString("awayLogo"));
+
+						json.put(obj);
+						return null;
+					}
+
+				});
+
+		return json;
+	}
+
+	public void removeMatch(String matchId) {
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("matchId", matchId);
+
+		jdbc.update("CALL `football_tournaments`.`sp_removeMatch`(:matchId);", params);
+
+	}
+
+	public void editMatch(String matchId, String homeGoals, String awayGoals) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("matchId", matchId);
+		params.addValue("homeGoals", homeGoals);
+		params.addValue("awayGoals", awayGoals);
+
+		jdbc.update("CALL `football_tournaments`.`sp_editMatch`(:matchId,:homeGoals,:awayGoals);", params);
+	}
+
 }

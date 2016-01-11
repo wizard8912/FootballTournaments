@@ -66,6 +66,27 @@ public class TournamentController {
 		return tournamentService.getTable(tournamentId).toString();
 	}
 
+	@RequestMapping("/getMatches")
+	public @ResponseBody String getMatches(@RequestParam String tournamentId) {
+
+		return tournamentService.getMatches(tournamentId).toString();
+	}
+
+	@RequestMapping("/removeMatch")
+	public @ResponseBody String removeMatch(@RequestParam String matchId) {
+
+		tournamentService.removeMatch(matchId);
+		return "true";
+	}
+
+	@RequestMapping("/editMatch")
+	public @ResponseBody String editMatch(@RequestParam String matchId, @RequestParam String homeGoals,
+			@RequestParam String awayGoals) {
+
+		tournamentService.editMatch(matchId, homeGoals, awayGoals);
+		return "true";
+	}
+
 	private String getGroupTournament(Model model) {
 		return "groupTournament";
 	}

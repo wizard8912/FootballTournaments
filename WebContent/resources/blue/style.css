@@ -3,7 +3,7 @@ table.tablesorter {
 	font-family: arial;
 	background-color: #CDCDCD;
 	margin: 10px 0pt 15px;
-	font-size: 14pt;
+	font-size: 10pt;
 	width: 60%;
 	text-align: left;
 }
@@ -43,4 +43,12 @@ table.tablesorter thead tr .headerSortDown {
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp
 	{
 	background-color: #428AB3;
+}
+
+tr:nth-child(even) {
+	background: #FDFFCF;
+}
+
+tr:nth-child(odd) {
+	background: #FFF
 }

@@ -51,4 +51,16 @@ public class TournamentService {
 	public JSONArray getTable(String tournamentId) {
 		return tournamentDao.getTable(tournamentId);
 	}
+
+	public JSONArray getMatches(String tournamentId) {
+		return tournamentDao.getMatches(tournamentId);
+	}
+
+	public void removeMatch(String matchId) {
+		tournamentDao.removeMatch(matchId);
+	}
+
+	public void editMatch(String matchId, String homeGoals, String awayGoals) {
+		tournamentDao.editMatch(matchId, homeGoals, awayGoals);
+	}
 }
