@@ -40,7 +40,8 @@
 									</div>
 								</div>
 								<div style="width: 15%; text-align: center; float: left;">
-									<div class="btn btn-success">
+									<div class="btn btn-success"
+										onclick="document.location.href='${pageContext.request.contextPath}/tournament/${tournament.id }'">
 										<fmt:message key="tournament.open" />
 									</div>
 								</div>

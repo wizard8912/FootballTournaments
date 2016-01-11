@@ -7,6 +7,7 @@
 	<definition name="template.base" template="/WEB-INF/templates/template1.jsp">
 		<put-attribute name="headIncludes" value="" />
 		<put-attribute name="bodyIncludes" value="" />
+		<put-attribute name="tournamentTitle" value="" />
 		<put-attribute name="title" value="homepage" />
 		<put-attribute name="header"
 			value="/WEB-INF/templates/template1/site/header.jsp" />
@@ -137,5 +138,25 @@
 		<put-attribute name="title" value="Bans" />
 		<put-attribute name="content"
 			value="/WEB-INF/templates/template1/tournaments/chooseTeamsToTournament.jsp" />
+	</definition>
+
+	<definition name="groupTournament" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="tournamentTitle"
+			value="/WEB-INF/templates/template1/tournament/title.jsp" />
+		<put-attribute name="content"
+			value="/WEB-INF/templates/template1/tournament/groupTournament.jsp" />
+	</definition>
+
+	<definition name="cupTournament" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="tournamentTitle"
+			value="/WEB-INF/templates/template1/tournament/title.jsp" />
+	</definition>
+
+	<definition name="groupCupTournament" extends="template.base">
+		<put-attribute name="title" value="Bans" />
+		<put-attribute name="tournamentTitle"
+			value="/WEB-INF/templates/template1/tournament/title.jsp" />
 	</definition>
 </tiles-definitions>

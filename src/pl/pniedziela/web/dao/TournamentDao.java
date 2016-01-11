@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -97,6 +99,118 @@ public class TournamentDao {
 
 			jdbc.update("CALL `football_tournaments`.`sp_addTeamToTournament`(:teamId,:tournamentId);", params);
 		}
+	}
+
+	public Tournament getTournamentById(int tournamentId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("tournamentId", tournamentId);
+		List<Tournament> tournaments = jdbc.query("CALL `football_tournaments`.`sp_getTournamentById`(:tournamentId);",
+				params, new RowMapper<Tournament>() {
+
+					@Override
+					public Tournament mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+						Tournament tournament = new Tournament();
+						tournament.setId(rs.getInt("id"));
+						tournament.setForUser(rs.getInt("forUser"));
+						tournament.setAddedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+								.format(new Date(rs.getTimestamp("addedTime").getTime())));
+						tournament.setLeague(leagueService.findLeagueById(rs.getInt("league")));
+
+						return tournament;
+					}
+				});
+
+		if (tournaments.isEmpty())
+			return null;
+		else
+			return tournaments.get(0);
+	}
+
+	public JSONArray getHomeTeams(String tournamentId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("tournamentId", tournamentId);
+		final JSONArray json = new JSONArray();
+		jdbc.query("CALL `football_tournaments`.`sp_getHomeTeams`(:tournamentId);", params,
+				new RowMapper<JSONObject>() {
+
+					@Override
+					public JSONObject mapRow(ResultSet rs, int rowNum) throws SQLException {
+						JSONObject obj = new JSONObject();
+						obj.put("image", rs.getString("logo"));
+						obj.put("description", rs.getString("description"));
+						obj.put("value", rs.getString("value"));
+						obj.put("text", rs.getString("text"));
+
+						json.put(obj);
+						return null;
+					}
+
+				});
+
+		return json;
+	}
+
+	public JSONArray getAwayTeams(String tournamentId, String homeTeamId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("tournamentId", tournamentId);
+		params.addValue("homeTeamId", homeTeamId);
+		final JSONArray json = new JSONArray();
+		jdbc.query("CALL `football_tournaments`.`sp_getAwayTeams`(:tournamentId,:homeTeamId);", params,
+				new RowMapper<JSONObject>() {
+
+					@Override
+					public JSONObject mapRow(ResultSet rs, int rowNum) throws SQLException {
+						JSONObject obj = new JSONObject();
+						obj.put("image", rs.getString("logo"));
+						obj.put("description", rs.getString("description"));
+						obj.put("value", rs.getString("value"));
+						obj.put("text", rs.getString("text"));
+
+						json.put(obj);
+						return null;
+					}
+
+				});
+
+		return json;
+	}
+
+	public boolean saveMatch(MapSqlParameterSource params) {
+
+		jdbc.update(
+				"CALL `football_tournaments`.`sp_saveMatch`(:tournamentId,:homeTeamId,:awayTeamId,:homeTeamGoals,:awayTeamGoals);",
+				params);
+		return true;
+	}
+
+	public JSONArray getTable(String tournamentId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("tournamentId", tournamentId);
+		final JSONArray json = new JSONArray();
+		jdbc.query("CALL `football_tournaments`.`sp_getTableForTournament`(:tournamentId);", params,
+				new RowMapper<JSONObject>() {
+
+					@Override
+					public JSONObject mapRow(ResultSet rs, int rowNum) throws SQLException {
+						JSONObject obj = new JSONObject();
+						obj.put("fullname", rs.getString("fullname"));
+						obj.put("matches", rs.getString("matches"));
+						obj.put("wins", rs.getString("wins"));
+						obj.put("draws", rs.getString("draws"));
+						obj.put("losts", rs.getString("losts"));
+						obj.put("goalsScored", rs.getString("goalsScored"));
+						obj.put("goalsLost", rs.getString("goalsLost"));
+						obj.put("goalsDifference", rs.getString("goalsDifference"));
+						obj.put("points", rs.getString("points"));
+
+						json.put(obj);
+						return null;
+					}
+
+				});
+
+		return json;
 	}
 
 }

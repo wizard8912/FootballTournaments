@@ -52,8 +52,7 @@
 						<div class='form-group'>
 							<label for="system"><fmt:message key="league.system" /></label>
 							<sf:select class="form-control" path="system" name="system"
-								type="text"
-								onChange="if($(this).val() == 1) {$('#grNum').hide();$('#dbCup').hide();$('#dbFinal').hide();} else {$('#grNum').show();$('#dbCup').show();$('#dbFinal').show();};">
+								id="system" type="text" onChange="changeForm()">
 								<sf:option value="1">
 									<fmt:message key="league.league" />
 								</sf:option>
@@ -84,7 +83,7 @@
 						</div>
 					</div>
 					<div class='col-sm-4'>
-						<div class='form-group'>
+						<div class='form-group' id="dbGroup">
 							<label for="doubleGroupMatches"><fmt:message
 									key="league.doubleGroupMatches" /></label>
 							<sf:checkbox value="0" class="form-control"
@@ -113,7 +112,8 @@
 							<label for=numberOfGroups><fmt:message
 									key="league.groupsNumber" /></label>
 							<sf:input data-validation="number" class="form-control"
-								path="numberOfGroups" name="numberOfGroups" type="text" />
+								path="numberOfGroups" name="numberOfGroups" type="text"
+								value="1" />
 						</div>
 					</div>
 					<div class='col-sm-4'>
@@ -139,9 +139,7 @@
 <script>
 	$(document).ready(function() {
 
-		$("#dbCup").hide();
-		$("#dbFinal").hide();
-		$("#grNum").hide();
+		changeForm();
 	});
 
 	var checked = 0;
@@ -190,6 +188,26 @@
 		} else {
 			$("#addLeague").hide("slow");
 			addLeagueVis = 0;
+		}
+	}
+
+	function changeForm() {
+		var id = $("#system").val();
+		if (id == 1) {
+			$('#grNum').hide();
+			$('#dbCup').hide();
+			$('#dbFinal').hide();
+			$('#dbGroup').show();
+		} else if (id == 2) {
+			$('#grNum').hide();
+			$('#dbCup').show();
+			$('#dbFinal').show();
+			$('#dbGroup').hide();
+		} else {
+			$('#grNum').show();
+			$('#dbCup').show();
+			$('#dbFinal').show();
+			$('#dbGroup').show();
 		}
 	}
 

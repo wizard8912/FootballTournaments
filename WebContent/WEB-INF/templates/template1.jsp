@@ -33,7 +33,7 @@
 	<div class="header">
 		<tiles:insertAttribute name="header"></tiles:insertAttribute>
 	</div>
-
+	<tiles:insertAttribute name="tournamentTitle"></tiles:insertAttribute>
 	<div class="content">
 		<tiles:insertAttribute name="alerts"></tiles:insertAttribute>
 		<tiles:insertAttribute name="content"></tiles:insertAttribute>

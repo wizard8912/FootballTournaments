@@ -23,7 +23,7 @@ import pl.pniedziela.web.service.UserService;
 
 @Controller
 @RequestMapping("/tournaments")
-public class TournamentController {
+public class TournamentsController {
 
 	@Autowired
 	TeamService teamService;
