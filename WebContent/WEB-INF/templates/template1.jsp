@@ -6,10 +6,10 @@
 <head>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/w2ui.css" />
-<link href="/FootballTournaments/static/bootstrap/css/bootstrap.min.css"
+<link href="${ pageContext.request.contextPath }/static/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
 <link
-	href="/FootballTournaments/static/bootstrap/css/bootstrap-datetimepicker.min.css"
+	href="${ pageContext.request.contextPath }/static/bootstrap/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
@@ -23,12 +23,12 @@
 }
 </style>
 </head>
-<body>
+<body style="background-color:#E8E8E8;">
 	<script type="text/javascript"
-		src="/FootballTournaments/static/jquery/jquery-1.8.3.min.js"
+		src="${ pageContext.request.contextPath }/static/jquery/jquery-1.8.3.min.js"
 		charset="UTF-8"></script>
 	<script type="text/javascript"
-		src="/FootballTournaments/static/bootstrap/js/bootstrap.min.js"></script>
+		src="${ pageContext.request.contextPath }/static/bootstrap/js/bootstrap.min.js"></script>
 
 	<div class="header">
 		<tiles:insertAttribute name="header"></tiles:insertAttribute>

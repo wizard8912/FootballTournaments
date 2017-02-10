@@ -26,7 +26,7 @@ public class UserDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public boolean create(User user) {
+	public int create(User user) {
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("username", user.getUsername());
@@ -44,10 +44,7 @@ public class UserDao {
 				"CALL `football_tournaments`.`sp_createNewUser`(:username,:password,:firstname,:lastname,:country,:city,:birthdate,:email, :forgotPassQ, :forgotPassA);",
 				params, Integer.class);
 
-		if (userId > 0)
-			return true;
-		else
-			return false;
+		return userId;
 	}
 
 	public User findByLogin(String username) {
@@ -203,6 +200,17 @@ public class UserDao {
 
 		Integer result = jdbc.queryForObject("CALL `football_tournaments`.`sp_getUserRoleIdByUserId`(:userId);", params,
 				Integer.class);
+
+		return result;
+	}
+
+	public String getActivationLink(int userId) {
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("userId", userId);
+
+		String result = jdbc.queryForObject("CALL `football_tournaments`.`sp_getActivationLink`(:userId);", params,
+				String.class);
 
 		return result;
 	}

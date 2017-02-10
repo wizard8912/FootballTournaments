@@ -31,7 +31,6 @@
 		<param-value>
 		classpath:pl/pniedziela/web/config/dao-context.xml
 		classpath:pl/pniedziela/web/config/security-context.xml
-		classpath:pl/pniedziela/web/config/service-context.xml
 		</param-value>
 	</context-param>
 <filter>

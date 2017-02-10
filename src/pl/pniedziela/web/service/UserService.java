@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import pl.pniedziela.web.dao.UserDao;
+import pl.pniedziela.web.domain.MailMail;
 import pl.pniedziela.web.domain.User;
 
 @Service
@@ -12,13 +13,30 @@ public class UserService {
 
 	@Autowired
 	private UserDao userDao;
-
 	@Autowired
 	private StandardPasswordEncoder passEncoder;
+	@Autowired
+	private MailMail mm;
 
 	public boolean saveUser(User user) {
 
-		return userDao.create(user);
+		int userId = userDao.create(user);
+
+		if (userId > 0) {
+			sendActivationMail(userId);
+		}
+
+		return userId > 0 ? true : false;
+	}
+
+	private void sendActivationMail(int userId) {
+
+		String activationLink = userDao.getActivationLink(userId);
+		User user = userDao.findById(userId);
+
+		mm.sendMail("przemek.niedziela@gmail.com", user.getEmail(), "Aktywacja konta",
+				"W celu potwierdzenia rejestracji kliknij w poni¿szy link: \n <a href='http://pniedziela.pl:8080/football_tournaments/activate/"
+						+ activationLink + "'>Aktywuj konto</a>");
 	}
 
 	public User findByLogin(String username) {

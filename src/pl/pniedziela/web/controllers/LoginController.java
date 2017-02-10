@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pniedziela.web.dao.ToolsDao;
 import pl.pniedziela.web.domain.Ban;
+import pl.pniedziela.web.domain.MailMail;
 import pl.pniedziela.web.domain.User;
 import pl.pniedziela.web.listener.AuthenticationHandler;
 import pl.pniedziela.web.service.BanService;
 import pl.pniedziela.web.service.UserService;
 
 @Controller
+@EnableScheduling
 public class LoginController {
 
 	@Autowired
@@ -30,10 +33,18 @@ public class LoginController {
 	BanService banService;
 	@Autowired
 	AuthenticationHandler authenticationHandler;
+	@Autowired
+	MailMail mm;
 
 	@RequestMapping("/")
-	public String getHomePage() {
+	public String getHomePage(HttpServletRequest request) {
+		System.out.println("wysy³anie maila");
+		//mm.sendMail("from@no-spam.com", "przemek.niedziela@gmail.com", "Testing123",
+		//		"Testing only \n\n Hello Spring Email Sender");
+		String username = request.getRemoteUser();
+		String ipaddress = request.getRemoteAddr();
 
+		userService.log("empty", "site.mainPage", ipaddress);
 		return "home";
 	}
 

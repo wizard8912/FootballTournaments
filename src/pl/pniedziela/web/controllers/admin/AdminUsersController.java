@@ -61,7 +61,6 @@ public class AdminUsersController {
 
 			if (role <= 2) {
 				String lang = res.resolveLocale(request).toLanguageTag();
-				System.out.println(lang);
 				String err = (lang.equals("pl") ? "Nie mozesz usunac konta administratora!"
 						: "You cannot delete admin account!");
 				userService.log(userAdmin, "admin.users.tryDeleteAdminAccount", ipaddress);

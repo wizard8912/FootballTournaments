@@ -23,10 +23,10 @@
 		<intercept-url pattern="/checkFpAnswer" access="!isAuthenticated()" />
 		<intercept-url pattern="/myAccount/**" access="isAuthenticated()" />
 		<intercept-url pattern="/admin/**"
-			access="hasAnyRole('ROLE_SuperAdmin', 'ROLE_Admin')" />
+	access="hasAnyRole('ROLE_SuperAdmin', 'ROLE_Admin')" />
 		<form-login authentication-success-handler-ref="authenticationHandler"
-			authentication-failure-handler-ref="authenticationHandler"
-			login-page="/login" default-target-url="/" />
+	authentication-failure-handler-ref="authenticationHandler" login-page="/login"
+	default-target-url="/" />
 		<remember-me />
 		<logout success-handler-ref="authenticationHandler" />
 
